@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
 import Login from './Pages/Login';
+import Explore from './Pages/Explore';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Route exact path="/bebidas/:id" />
       <Route path="/comidas/:id/in-progress" />
       <Route path="/bebidas/:id/in-progress" />
-      <Route exact path="/explorar" />
+      <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" />
       <Route exact path="/explorar/bebidas" />
       <Route exact path="/explorar/comidas/ingredientes" />
