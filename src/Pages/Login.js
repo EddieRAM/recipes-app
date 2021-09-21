@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function Login() {
+export default function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonStatus, setButtonStatus] = useState(true);
@@ -12,6 +13,13 @@ export default function Login() {
       setButtonStatus(false);
     }
   }, [email, password]);
+
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
+  }
 
   return (
     <div>
@@ -29,9 +37,16 @@ export default function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ buttonStatus }
+        onClick={ handleClick }
       >
         Entrar
       </button>
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
