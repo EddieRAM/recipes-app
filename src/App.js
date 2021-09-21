@@ -5,12 +5,13 @@ import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
 import Login from './Pages/Login';
 import Explore from './Pages/Explore';
+import Foods from './Pages/Foods';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" />
+      <Route exact path="/comidas" component={ Foods } />
       <Route exact path="/bebidas" />
       <Route exact path="/comidas/:id" />
       <Route exact path="/bebidas/:id" />
