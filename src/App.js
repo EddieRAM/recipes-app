@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Switch from 'react-bootstrap/esm/Switch';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Login from './Pages/Login';
 import Explore from './Pages/Explore';
+import ExploreFood from './Pages/ExploreFood';
+import ExploreDrinks from './Pages/ExploreDrinks';
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
       <Route path="/comidas/:id/in-progress" />
       <Route path="/bebidas/:id/in-progress" />
       <Route exact path="/explorar" component={ Explore } />
-      <Route exact path="/explorar/comidas" />
-      <Route exact path="/explorar/bebidas" />
+      <Route exact path="/explorar/comidas" component={ ExploreFood } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
       <Route exact path="/explorar/comidas/ingredientes" />
       <Route path="/explorar/bebidas/ingredientes" />
       <Route path="/explorar/comidas/area" />
