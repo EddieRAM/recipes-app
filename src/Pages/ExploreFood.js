@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import profileIcon from '../images/profileIcon.svg';
+import Footer from '../Components/Footer';
 
 export default function ExploreFood({ history }) {
   return (
     <div>
+      <h1 data-testid="page-title">Explorar Comidas</h1>
+      <img
+        data-testid="profile-top-btn"
+        src={ profileIcon }
+        alt="Para a tela de perfil"
+      />
       <button
         type="button"
         data-testid="explore-by-ingredient"
@@ -25,6 +33,7 @@ export default function ExploreFood({ history }) {
       >
         Me Surpreenda!
       </button>
+      <Footer />
     </div>
   );
 }
