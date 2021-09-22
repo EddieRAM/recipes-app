@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from '../Components/Footer';
 
 export default function Explore({ history }) {
   return (
@@ -18,6 +19,7 @@ export default function Explore({ history }) {
       >
         Explorar Bebidas
       </button>
+      <Footer />
     </div>
   );
 }

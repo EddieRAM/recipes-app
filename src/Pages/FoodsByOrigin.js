@@ -1,10 +1,10 @@
 import React from 'react';
 import Footer from '../Components/Footer';
 
-export default function Foods() {
+export default function FoodsByOrigin() {
   return (
     <div>
-      Comidas
+      Comidas por local de origem
       <Footer />
     </div>
   );

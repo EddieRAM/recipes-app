@@ -4,6 +4,8 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
+// solução para uso das imagens encontrada no site abaixo
+// https://qastack.com.br/programming/39999367/how-do-i-reference-a-local-image-in-react
 export default function Footer() {
   return (
     <footer

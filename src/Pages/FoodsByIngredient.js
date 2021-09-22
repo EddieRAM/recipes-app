@@ -1,10 +1,10 @@
 import React from 'react';
 import Footer from '../Components/Footer';
 
-export default function Foods() {
+export default function FoodsByIngredient() {
   return (
     <div>
-      Comidas
+      Comidas por ingrediente
       <Footer />
     </div>
   );

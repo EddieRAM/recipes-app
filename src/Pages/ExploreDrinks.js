@@ -1,10 +1,10 @@
 import React from 'react';
 import Footer from '../Components/Footer';
 
-export default function Foods() {
+export default function ExploreDrinks() {
   return (
     <div>
-      Comidas
+      Explorar bebidas
       <Footer />
     </div>
   );
