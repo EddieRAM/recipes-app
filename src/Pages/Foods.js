@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Foods() {
   const [apiFood, setApiFood] = useState([]);
+  const [reservation, setReservation] = useState([]);
   const [ApiCategory, setApiCategory] = useState([]);
-  console.log(ApiCategory);
+  const [nameCategory, setnameCategory] = useState('');
 
   useEffect(() => {
     async function MyApiFood() {
@@ -17,6 +19,7 @@ function Foods() {
         }
       });
       setApiFood(newArray);
+      setReservation(newArray);
     }
     MyApiFood();
   }, []);
@@ -37,15 +40,51 @@ function Foods() {
     MyApiCategory();
   }, []);
 
+  useEffect(() => {
+    async function CallCategoryAPI() {
+      if (nameCategory !== '') {
+        const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${nameCategory}`;
+        const results = await fetch(url);
+        const { meals } = await results.json();
+        let newS = [];
+        meals.forEach((element, index) => {
+          const number = 12;
+          if (index < number) {
+            newS = [...newS, element];
+          }
+        });
+        setApiFood(newS);
+      }
+    }
+    CallCategoryAPI();
+  }, [nameCategory]);
+
+  function verificationNameCategory(item) {
+    if (item !== nameCategory) {
+      setnameCategory(item);
+    } else {
+      setnameCategory('');
+      setApiFood(reservation);
+    }
+  }
+
   return (
     <div>
       <div>
+        <button
+          onClick={ () => { setApiFood(reservation); setnameCategory(''); } }
+          type="submit"
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {
           ApiCategory.map((item) => (
             <button
               type="submit"
               key={ item }
               data-testid={ `${item}-category-filter` }
+              onClick={ () => { verificationNameCategory(item); } }
             >
               {item}
             </button>
@@ -55,12 +94,14 @@ function Foods() {
       {
         apiFood.map((item, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ item.id }>
-            <img
-              src={ item.strMealThumb }
-              data-testid={ `${index}-card-img` }
-              alt={ item.strMeal }
-            />
-            <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+            <Link to={ `/comidas/${item.idMeal}` }>
+              <img
+                src={ item.strMealThumb }
+                data-testid={ `${index}-card-img` }
+                alt={ item.strMeal }
+              />
+              <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+            </Link>
           </div>))
       }
     </div>

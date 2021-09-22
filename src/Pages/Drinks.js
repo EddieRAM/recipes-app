@@ -6,7 +6,6 @@ function Drinks() {
   const [reserve, setReserve] = useState([]);
   const [apiCategoryDrink, setCategoryDrink] = useState([]);
   const [verification, setNameVerification] = useState('');
-  const [s]
 
   useEffect(() => {
     async function MyApiDrink() {
@@ -43,17 +42,19 @@ function Drinks() {
 
   useEffect(() => {
     async function CallCategoryAPI() {
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${verification}`;
-      const results = await fetch(url);
-      const { drinks } = await results.json();
-      let newS = [];
-      drinks.forEach((element, index) => {
-        const number = 12;
-        if (index < number) {
-          newS = [...newS, element];
-        }
-      });
-      setApiDrink(newS);
+      if (verification !== '') {
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${verification}`;
+        const results = await fetch(url);
+        const { drinks } = await results.json();
+        let newS = [];
+        drinks.forEach((element, index) => {
+          const number = 12;
+          if (index < number) {
+            newS = [...newS, element];
+          }
+        });
+        setApiDrink(newS);
+      }
     }
     CallCategoryAPI();
   }, [verification]);
@@ -63,13 +64,20 @@ function Drinks() {
       setNameVerification(item);
     } else {
       setApiDrink(reserve);
+      setNameVerification('');
     }
   }
 
   return (
     <div>
       <div>
-        <button type="submit">All</button>
+        <button
+          onClick={ () => { setApiDrink(reserve); setNameVerification(''); } }
+          type="submit"
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {
           apiCategoryDrink.map((item) => (
             <button
