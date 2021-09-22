@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-import '../styles/Header.css';
+import '../Styles/Header.css';
 
 function Header() {
   const history = useHistory();
