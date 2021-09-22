@@ -1,6 +1,6 @@
 .header {
   align-items: center;
-  background-color: rgb(54, 211, 14);
+  background-color: gray;
   display: flex;
   height: 2.5rem;
   justify-content: space-between;
