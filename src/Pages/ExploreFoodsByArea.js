@@ -5,7 +5,7 @@ import searchIcon from '../images/searchIcon.svg';
 function ExploreFoodsByArea() {
   return (
     <div>
-      <h1 data-testid="page-title">Explorar Comidas por Localidade</h1>
+      <h1 data-testid="page-title">Explorar Origem</h1>
       <img
         data-testid="search-top-btn"
         src={ searchIcon }
