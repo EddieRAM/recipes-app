@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Drinks() {
   const [apiDrink, setApiDrink] = useState([]);
@@ -70,6 +71,10 @@ function Drinks() {
 
   return (
     <div>
+      <header>
+        <h1 data-testid="page-title">Bebidas</h1>
+        <Header />
+      </header>
       <div>
         <button
           onClick={ () => { setApiDrink(reserve); setNameVerification(''); } }

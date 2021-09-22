@@ -15,6 +15,19 @@
   max-height: 80vh;
 }
 
+.login-form {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 1.3em;
+  margin-top: 5em;
+  width: 75%;
+}
+
+.login-button {
+  align-self: center;
+  width: 100%;
+}
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

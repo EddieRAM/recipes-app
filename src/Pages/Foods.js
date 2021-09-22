@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Foods() {
   const [apiFood, setApiFood] = useState([]);
@@ -70,6 +71,10 @@ function Foods() {
 
   return (
     <div>
+      <header>
+        <h1 data-testid="page-title">Comidas</h1>
+        <Header />
+      </header>
       <div>
         <button
           onClick={ () => { setApiFood(reservation); setnameCategory(''); } }

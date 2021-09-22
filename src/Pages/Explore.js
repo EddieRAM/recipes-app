@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import profileIcon from '../images/profileIcon.svg';
 
 export default function Explore({ history }) {
   return (
+
     <div>
+      <div>
+        <h1 data-testid="page-title">Explorar</h1>
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Para a tela de perfil"
+        />
+      </div>
       <button
         type="button"
         data-testid="explore-food"
