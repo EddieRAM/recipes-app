@@ -1,5 +1,6 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
+import Footer from '../Components/Footer';
 
 function ExploreDrinksByIngredients() {
   return (
@@ -10,6 +11,7 @@ function ExploreDrinksByIngredients() {
         src={ profileIcon }
         alt="Para a tela de perfil"
       />
+      <Footer />
     </div>
   );
 }

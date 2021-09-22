@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
+import Footer from '../Components/Footer';
 
 export default function ExploreDrinks({ history }) {
   return (
@@ -25,6 +26,7 @@ export default function ExploreDrinks({ history }) {
       >
         Me Surpreenda!
       </button>
+      <Footer />
     </div>
   );
 }

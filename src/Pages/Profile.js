@@ -1,7 +1,8 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
+import Footer from '../Components/Footer';
 
-function Profile() {
+export default function Profile() {
   return (
     <div>
       <h1 data-testid="page-title">Perfil</h1>
@@ -10,8 +11,7 @@ function Profile() {
         src={ profileIcon }
         alt="Para a tela de perfil"
       />
+      <Footer />
     </div>
   );
 }
-
-export default Profile;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../Components/Footer';
 
 function Drinks() {
   const [apiDrink, setApiDrink] = useState([]);
@@ -109,6 +110,7 @@ function Drinks() {
             </Link>
           </div>))
       }
+      <Footer />
     </div>
   );
 }
