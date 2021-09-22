@@ -6,7 +6,9 @@ import Footer from '../Components/Footer';
 export default function Profile({ history }) {
   const [email, setEmail] = useState('');
   useEffect(() => {
-    setEmail(JSON.parse(localStorage.getItem('user')).email);
+    if (localStorage.getItem('user')) {
+      setEmail(JSON.parse(localStorage.getItem('user')).email);
+    }
   }, []);
 
   function handleClick() {
@@ -45,7 +47,9 @@ export default function Profile({ history }) {
           Sair
         </button>
       </main>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
