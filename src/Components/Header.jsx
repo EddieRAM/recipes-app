@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'react-dom';
+import { useHistory } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import HeaderElements from './HeaderElements';
-import SearchBar from './SearchBar';
+import '../Styles/Header.css';
 
 function Header() {
-  const [showSearch, setShowSearch] = useState(false);
+  const history = useHistory();
+
   return (
-    <header>
-      { showSearch ? <SearchBar /> : null }
+    <div className="header">
       <button
-        onClick={ () => setShowSearch(!showSearch) }
+        data-testid="profile-top-btn"
         type="button"
+        onClick={ () => history.push('/perfil') }
+        src={ profileIcon }
       >
-        <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="Abre a barra de pesquisa"
-        />
+        <img src={ profileIcon } alt="Perfil" />
       </button>
-      <HeaderElements />
-    </header>
+      <span data-testid="page-title">
+        Header
+      </span>
+      <button
+        data-testid="search-top-btn"
+        type="button"
+        src={ searchIcon }
+      >
+        <img src={ searchIcon } alt="Mostrar pesquisa" />
+      </button>
+    </div>
   );
 }
+
+Header.propTypes = {
+  toggleSearchBar: PropTypes.object,
+}.isRequired;
 
 export default Header;

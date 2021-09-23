@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import ProfileAvatar from '../Components/ProfileAvatar';
 import profileIcon from '../images/profileIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -24,11 +25,7 @@ function FavoriteRecipes({ history }) {
     <div>
       <header>
         <h1 data-testid="page-title">Receitas Favoritas</h1>
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="Para a tela de perfil"
-        />
+        <ProfileAvatar />
       </header>
       <div>
         <button

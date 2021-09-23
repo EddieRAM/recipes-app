@@ -1,7 +1,7 @@
 import React from 'react';
-import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Footer from '../Components/Footer';
+import ProfileAvatar from '../Components/ProfileAvatar';
 
 function ExploreFoodsByArea() {
   return (
@@ -12,11 +12,7 @@ function ExploreFoodsByArea() {
         src={ searchIcon }
         alt="Para a tela de perfil"
       />
-      <img
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Para a tela de perfil"
-      />
+      <ProfileAvatar />
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import Footer from '../Components/Footer';
+import ProfileAvatar from '../Components/ProfileAvatar';
 
 export default function Profile({ history }) {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ export default function Profile({ history }) {
   return (
     <div>
       <h1 data-testid="page-title">Perfil</h1>
+      <ProfileAvatar />
       <img
         data-testid="profile-top-btn"
         src={ profileIcon }
