@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProfileAvatar from '../Components/ProfileAvatar';
-import profileIcon from '../images/profileIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
