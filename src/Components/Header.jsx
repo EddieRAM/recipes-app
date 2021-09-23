@@ -3,7 +3,6 @@ import PropTypes from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-
 import '../Styles/Header.css';
 
 function Header() {
