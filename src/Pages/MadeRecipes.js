@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 export default function MadeRecipes() {
   const [isCopied, setIsCopied] = useState(false);
+  const [filter, setFilter] = useState('All');
   let disapearMsg;
   const copiedMsg = 'Link copiado!';
 
@@ -147,21 +148,18 @@ export default function MadeRecipes() {
 
   const getDoneRecipes = () => (JSON.parse(localStorage.getItem('doneRecipes')));
 
-  const showAllDoneRecipes = () => {
+  const showDoneRecipes = () => {
     const doneRecipes = getDoneRecipes();
-    return renderList(doneRecipes);
-  };
-
-  const showDoneFoods = () => {
-    const doneRecipes = getDoneRecipes();
-    const filteredRecipes = doneRecipes.filter((recipe) => recipe.type === 'comida');
-    return renderList(filteredRecipes);
-  };
-
-  const showDoneDrinks = () => {
-    const doneRecipes = getDoneRecipes();
-    const filteredRecipes = doneRecipes.filter((recipe) => recipe.type === 'bebida');
-    return renderList(filteredRecipes);
+    let filteredRecipes;
+    if (filter === 'All') return renderList(doneRecipes);
+    if (filter === 'Food') {
+      filteredRecipes = doneRecipes.filter((recipe) => recipe.type === 'comida');
+      return renderList(filteredRecipes);
+    }
+    if (filter === 'Drinks') {
+      filteredRecipes = doneRecipes.filter((recipe) => recipe.type === 'bebida');
+      return renderList(filteredRecipes);
+    }
   };
 
   const renderButtons = () => (
@@ -169,21 +167,24 @@ export default function MadeRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
-        onClick={ showAllDoneRecipes }
+        value="All"
+        onClick={ ({ target }) => setFilter(target.value) }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ showDoneFoods }
+        value="Food"
+        onClick={ ({ target }) => setFilter(target.value) }
       >
         Food
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ showDoneDrinks }
+        value="Drinks"
+        onClick={ ({ target }) => setFilter(target.value) }
       >
         Drinks
       </button>
@@ -195,7 +196,7 @@ export default function MadeRecipes() {
       <h1 data-testid="page-title">Receitas Feitas</h1>
       <ProfileAvatar />
       { renderButtons() }
-      { showAllDoneRecipes() }
+      { showDoneRecipes() }
     </div>
   );
 }
