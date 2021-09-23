@@ -7,6 +7,7 @@ function Header() {
   const [showSearch, setShowSearch] = useState(false);
   return (
     <header>
+      <HeaderElements />
       { showSearch ? <SearchBar /> : null }
       <button
         onClick={ () => setShowSearch(!showSearch) }
@@ -18,7 +19,6 @@ function Header() {
           alt="Abre a barra de pesquisa"
         />
       </button>
-      <HeaderElements />
     </header>
   );
 }
