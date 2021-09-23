@@ -4,12 +4,37 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
-  const [favorite, setFavorite] = useState([]);
+  const [favorite, setFavorite] = useState([
+    {
+      id: '52771',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    },
+    {
+      id: '178319',
+      type: 'bebida',
+      area: '',
+      category: 'Cocktail',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'Aquamarine',
+      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    },
+  ]);
+  const [message, setMessage] = useState(false);
   useEffect(() => {
     if (localStorage.getItem('favoriteRecipes')) {
       setFavorite(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
   }, []);
+  // function handleClick({ currentTarget }) {
+  //   navigator.clipboard.writeText(`http://localhost:3000/comidas/${currentTarget}`);
+  //   console.log(currentTarget.parentNode.key);
+  //   alert('Link copiado!'); // eslint-disable-line no-alert
+  // }
   return (
     <div>
       <header>
@@ -22,8 +47,8 @@ function FavoriteRecipes() {
       </header>
       <div>
         <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">All</button>
-        <button type="button" data-testid="filter-by-drink-btn">All</button>
+        <button type="button" data-testid="filter-by-food-btn">Foods</button>
+        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
       <main>
         {
@@ -42,17 +67,27 @@ function FavoriteRecipes() {
                     { `${item.area} - ${item.category}` }
                   </p>
                   <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
-                  {/* <p data-testid={ `${index}-horizontal-done-date` }>{}</p> */}
-                  <img
-                    src={ shareIcon }
-                    alt="Share Icon"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />
-                  <img
-                    src={ blackHeartIcon }
-                    alt=""
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                  />
+                  <button
+                    type="button"
+                    onClick={ () => {
+                      navigator.clipboard.writeText(`http://localhost:3000/comidas/${item.id}`);
+                      setMessage(true);
+                    } }
+                  >
+                    <img
+                      src={ shareIcon }
+                      alt="Share Icon"
+                      data-testid={ `${index}-horizontal-share-btn` }
+                    />
+                  </button>
+                  <button type="button">
+                    <img
+                      src={ blackHeartIcon }
+                      alt=""
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                    />
+                  </button>
+                  { message && <p>Link copiado!</p>}
                 </div>
               );
             } return (
@@ -68,16 +103,25 @@ function FavoriteRecipes() {
                   {item.alcoholicOrNot}
                 </p>
                 <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
-                <img
-                  src={ shareIcon }
-                  alt="Share Icon"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
-                <img
-                  src={ blackHeartIcon }
-                  alt=""
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                />
+                <button
+                  type="button"
+                  onClick={ () => {
+                    navigator.clipboard.writeText(`http://localhost:3000/comidas/${item.id}`);
+                  } }
+                >
+                  <img
+                    src={ shareIcon }
+                    alt="Share Icon"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />
+                </button>
+                <button type="button">
+                  <img
+                    src={ blackHeartIcon }
+                    alt=""
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                  />
+                </button>
               </div>
             );
           })
