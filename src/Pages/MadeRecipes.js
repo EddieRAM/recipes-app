@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProfileAvatar from '../Components/ProfileAvatar';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -22,16 +23,21 @@ export default function MadeRecipes() {
     const tagName2 = recipe.tags[1];
     return (
       <li key={ index }>
-        <img
-          alt="imagem da receita"
-          src={ recipe.image }
-          data-testid={ `${index}-horizontal-image` }
-        />
-        <span
-          data-testid={ `${index}-horizontal-name` }
-        >
-          { recipe.name }
-        </span>
+        <Link to={ `/comidas/${recipe.id}` }>
+          <img
+            alt="imagem da receita"
+            src={ recipe.image }
+            data-testid={ `${index}-horizontal-image` }
+            width="75%"
+          />
+        </Link>
+        <Link to={ `/comidas/${recipe.id}` }>
+          <span
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { recipe.name }
+          </span>
+        </Link>
         <span
           data-testid={ `${index}-horizontal-top-text` }
         >
@@ -58,16 +64,21 @@ export default function MadeRecipes() {
 
   const drinkCard = (recipe, index) => (
     <li key={ index }>
-      <img
-        alt="imagem da receita"
-        src={ recipe.image }
-        data-testid={ `${index}-horizontal-image` }
-      />
-      <span
-        data-testid={ `${index}-horizontal-name` }
-      >
-        { recipe.name }
-      </span>
+      <Link to={ `/bebidas/${recipe.id}` }>
+        <img
+          alt="imagem da receita"
+          src={ recipe.image }
+          data-testid={ `${index}-horizontal-image` }
+          width="75%"
+        />
+      </Link>
+      <Link to={ `/bebidas/${recipe.id}` }>
+        <span
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { recipe.name }
+        </span>
+      </Link>
       <span
         data-testid={ `${index}-horizontal-top-text` }
       >
@@ -92,50 +103,6 @@ export default function MadeRecipes() {
   const recipeCard = (recipe, index) => {
     if (recipe.type === 'comida') return foodCard(recipe, index);
     if (recipe.type === 'bebida') return drinkCard(recipe, index);
-    return (
-      <li key={ index }>
-        <img
-          alt="imagem da receita"
-          src={ recipe.image }
-          data-testid={ `${index}-horizontal-image` }
-        />
-        <span
-          data-testid={ `${index}-horizontal-name` }
-        >
-          { recipe.name }
-        </span>
-        <span
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          { recipe.category }
-        </span>
-        <span
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { recipe.doneDate }
-        </span>
-        <div>
-          {
-            recipe.tags.map((tagName, tagIndex) => (
-              <span
-                key={ tagIndex }
-                data-testid={ `${index}-${tagName}-horizontal-tag` }
-              >
-                { tagName }
-              </span>
-            ))
-          }
-        </div>
-        <button type="button" onClick={ () => copyShareLink(recipe.id) }>
-          <img
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-            alt="botao de compartilhar"
-          />
-        </button>
-        <span>{ isCopied ? copiedMsg : ''}</span>
-      </li>
-    );
   };
 
   const renderList = (list) => (
