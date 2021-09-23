@@ -138,7 +138,6 @@ function FavoriteRecipes({ history }) {
                   type="button"
                   onClick={ () => {
                     navigator.clipboard.writeText(`http://localhost:3000/comidas/${item.id}`);
-                    alert('Link copiado!'); // eslint-disable-line no-alert
                   } }
                 >
                   <img
@@ -176,3 +175,6 @@ FavoriteRecipes.propTypes = {
 };
 
 export default FavoriteRecipes;
+
+// https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-noninteractive-element-interactions.md
+// https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
