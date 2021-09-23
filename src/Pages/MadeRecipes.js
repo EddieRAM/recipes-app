@@ -3,54 +3,127 @@ import ProfileAvatar from '../Components/ProfileAvatar';
 import shareIcon from '../images/shareIcon.svg';
 
 function MadeRecipes() {
+  const foodCard = (recipe, index) => {
+    const tagName1 = recipe.tags[0];
+    const tagName2 = recipe.tags[1];
+    return (
+      <li key={ index }>
+        <img
+          alt="imagem da receita"
+          src={ recipe.image }
+          data-testid={ `${index}-horizontal-image` }
+        />
+        <span
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { recipe.name }
+        </span>
+        <span
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { `${recipe.area} - ${recipe.category}` }
+        </span>
+        <span
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          { recipe.doneDate }
+        </span>
+        <span data-testid={ `${index}-${tagName1}-horizontal-tag` }>{tagName1}</span>
+        <span data-testid={ `${index}-${tagName2}-horizontal-tag` }>{tagName2}</span>
+        <img
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt="botao de compartilhar"
+        />
+      </li>
+    );
+  };
+
+  const drinkCard = (recipe, index) => (
+    <li>
+      <img
+        alt="imagem da receita"
+        src={ recipe.image }
+        data-testid={ `${index}-horizontal-image` }
+      />
+      <span
+        data-testid={ `${index}-horizontal-name` }
+      >
+        { recipe.name }
+      </span>
+      <span
+        data-testid={ `${index}-horizontal-top-text` }
+      >
+        { recipe.alcoholicOrNot }
+      </span>
+      <span
+        data-testid={ `${index}-horizontal-done-date` }
+      >
+        { recipe.doneDate }
+      </span>
+      <img
+        data-testid={ `${index}-horizontal-share-btn` }
+        src={ shareIcon }
+        alt="botao de compartilhar"
+      />
+    </li>
+  );
+
+  const recipeCard = (recipe, index) => {
+    if (recipe.type === 'comida') return foodCard(recipe, index);
+    if (recipe.type === 'bebida') return drinkCard(recipe, index);
+    return (
+      <li key={ index }>
+        <img
+          alt="imagem da receita"
+          src={ recipe.image }
+          data-testid={ `${index}-horizontal-image` }
+        />
+        <span
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { recipe.name }
+        </span>
+        <span
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { recipe.category }
+        </span>
+        <span
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          { recipe.doneDate }
+        </span>
+        <div>
+          {
+            recipe.tags.map((tagName, tagIndex) => (
+              <span
+                key={ tagIndex }
+                data-testid={ `${index}-${tagName}-horizontal-tag` }
+              >
+                { tagName }
+              </span>
+            ))
+          }
+        </div>
+        <img
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt="botao de compartilhar"
+        />
+      </li>
+    );
+  };
+
   const renderList = (list) => (
     <ul>
       {
-        list.map((recipe, index) => (
-          <li key={ index }>
-            <img
-              alt="imagem da receita"
-              src={ recipe.image }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <span
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { recipe.category }
-            </span>
-            <span
-              data-testid={ `${index}-horizontal-name` }
-            >
-              { recipe.name }
-            </span>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate }
-            </span>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            >
-              { shareIcon }
-            </button>
-            <div>
-              { recipe.tags.map((tagName, tagIndex) => (
-                <span
-                  key={ tagIndex }
-                  data-testid={ `${index}-${tagName}-horizontal-tag` }
-                >
-                  { tagName }
-                </span>
-              )) }
-            </div>
-          </li>
-        ))
+        list.map((recipe, index) => (recipeCard(recipe, index)))
       }
     </ul>
   );
 
-  const getDoneRecipes = () => JSON.parse(localStorage.getItem('doneRecipes'));
+  const getDoneRecipes = () => (JSON.parse(localStorage.getItem('doneRecipes')));
 
   const showAllDoneRecipes = () => {
     const doneRecipes = getDoneRecipes();
