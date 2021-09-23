@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileAvatar from '../Components/ProfileAvatar';
 import shareIcon from '../images/shareIcon.svg';
 
-function MadeRecipes() {
+export default function MadeRecipes() {
+  const [isCopied, setIsCopied] = useState(false);
+  let disapearMsg;
+  const copiedMsg = 'Link copiado!';
+
+  const copyShareLink = (id) => {
+    const TWO_SECONDS = 1500;
+    setIsCopied(true);
+    navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
+    disapearMsg = setTimeout(() => setIsCopied(false), TWO_SECONDS);
+  };
+
+  useEffect(() => clearTimeout(disapearMsg));
+
   const foodCard = (recipe, index) => {
     const tagName1 = recipe.tags[0];
     const tagName2 = recipe.tags[1];
@@ -30,17 +43,20 @@ function MadeRecipes() {
         </span>
         <span data-testid={ `${index}-${tagName1}-horizontal-tag` }>{tagName1}</span>
         <span data-testid={ `${index}-${tagName2}-horizontal-tag` }>{tagName2}</span>
-        <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-          alt="botao de compartilhar"
-        />
+        <button type="button" onClick={ () => copyShareLink(recipe.id) }>
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="botao de compartilhar"
+          />
+        </button>
+        <span>{ isCopied ? copiedMsg : ''}</span>
       </li>
     );
   };
 
   const drinkCard = (recipe, index) => (
-    <li>
+    <li key={ index }>
       <img
         alt="imagem da receita"
         src={ recipe.image }
@@ -61,11 +77,14 @@ function MadeRecipes() {
       >
         { recipe.doneDate }
       </span>
-      <img
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        alt="botao de compartilhar"
-      />
+      <button type="button" onClick={ () => copyShareLink(recipe.id) }>
+        <img
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt="botao de compartilhar"
+        />
+      </button>
+      <span>{ isCopied ? copiedMsg : ''}</span>
     </li>
   );
 
@@ -106,11 +125,14 @@ function MadeRecipes() {
             ))
           }
         </div>
-        <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-          alt="botao de compartilhar"
-        />
+        <button type="button" onClick={ () => copyShareLink(recipe.id) }>
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="botao de compartilhar"
+          />
+        </button>
+        <span>{ isCopied ? copiedMsg : ''}</span>
       </li>
     );
   };
@@ -177,5 +199,3 @@ function MadeRecipes() {
     </div>
   );
 }
-
-export default MadeRecipes;
