@@ -1,29 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteRecipes() {
-  const [favorite, setFavorite] = useState([
-    // {
-    //   id: '52771',
-    //   type: 'comida',
-    //   area: 'Italian',
-    //   category: 'Vegetarian',
-    //   alcoholicOrNot: '',
-    //   name: 'Spicy Arrabiata Penne',
-    //   image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    // },
-    // {
-    //   id: '178319',
-    //   type: 'bebida',
-    //   area: '',
-    //   category: 'Cocktail',
-    //   alcoholicOrNot: 'Alcoholic',
-    //   name: 'Aquamarine',
-    //   image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    // },
-  ]);
+function FavoriteRecipes({ history }) {
+  const [favorite, setFavorite] = useState([]);
   const [message, setMessage] = useState(false);
   const [food, setFood] = useState(false);
   const [drink, setDrink] = useState(false);
@@ -85,13 +67,22 @@ function FavoriteRecipes() {
                     src={ item.image }
                     alt={ item.name }
                     data-testid={ `${index}-horizontal-image` }
+                    role="presentation"
+                    onClick={ () => history.push(`/comidas/${item.id}`) }
+                    width="75%"
                   />
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
                     { `${item.area} - ${item.category}` }
                   </p>
-                  <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
+                  <p
+                    data-testid={ `${index}-horizontal-name` }
+                    role="presentation"
+                    onClick={ () => history.push(`/comidas/${item.id}`) }
+                  >
+                    { item.name }
+                  </p>
                   <button
                     type="button"
                     onClick={ () => {
@@ -127,13 +118,22 @@ function FavoriteRecipes() {
                   src={ item.image }
                   alt={ item.name }
                   data-testid={ `${index}-horizontal-image` }
+                  role="presentation"
+                  onClick={ () => history.push(`/bebidas/${item.id}`) }
+                  width="75%"
                 />
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
                 >
                   {item.alcoholicOrNot}
                 </p>
-                <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                  role="presentation"
+                  onClick={ () => history.push(`/bebidas/${item.id}`) }
+                >
+                  { item.name }
+                </p>
                 <button
                   type="button"
                   onClick={ () => {
@@ -168,5 +168,11 @@ function FavoriteRecipes() {
     </div>
   );
 }
+
+FavoriteRecipes.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default FavoriteRecipes;
