@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import Context from '../Context/Context';
 
 function Foods() {
-  const [apiFood, setApiFood] = useState([]);
+  const { apiFood, setApiFood, status, setStatus } = useContext(Context);
   const [reservation, setReservation] = useState([]);
   const [ApiCategory, setApiCategory] = useState([]);
   const [nameCategory, setnameCategory] = useState('');
@@ -23,8 +24,8 @@ function Foods() {
       setApiFood(newArray);
       setReservation(newArray);
     }
-    MyApiFood();
-  }, []);
+    if (status === false) MyApiFood();
+  }, [setApiFood, status]);
 
   useEffect(() => {
     async function MyApiCategory() {
@@ -59,7 +60,7 @@ function Foods() {
       }
     }
     CallCategoryAPI();
-  }, [nameCategory]);
+  }, [nameCategory, setApiFood]);
 
   function verificationNameCategory(item) {
     if (item !== nameCategory) {
@@ -78,7 +79,9 @@ function Foods() {
       </header>
       <div>
         <button
-          onClick={ () => { setApiFood(reservation); setnameCategory(''); } }
+          onClick={ () => {
+            setApiFood(reservation); setnameCategory(''); setStatus(false);
+          } }
           type="submit"
           data-testid="All-category-filter"
         >

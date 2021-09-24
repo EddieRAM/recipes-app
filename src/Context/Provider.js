@@ -7,6 +7,10 @@ function Provider({ children }) {
   const [data, setData] = useState([]);
   const [usrQuery, setSearch] = useState('');
   const [radioBtn, setRadioBtn] = useState(' ingredients');
+  const [apiFood, setApiFood] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [apiDrink, setApiDrink] = useState([]);
+  const [drinkStatus, setDrinkStatus] = useState(false);
 
   const handleClick = () => fetchFoodsApi(radioBtn, usrQuery);
 
@@ -18,6 +22,14 @@ function Provider({ children }) {
     radioBtn,
     setRadioBtn,
     handleClick,
+    apiFood,
+    setApiFood,
+    status,
+    setStatus,
+    apiDrink,
+    setApiDrink,
+    drinkStatus,
+    setDrinkStatus,
   };
 
   return (
