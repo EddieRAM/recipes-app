@@ -7,12 +7,16 @@ function Provider({ children }) {
   const [data, setData] = useState([]);
   const [usrQuery, setSearch] = useState('');
   const [radioBtn, setRadioBtn] = useState(' ingredients');
+  const [drinks, setDrinks] = useState([]);
+  const [foods, setFoods] = useState([]);
+  const [dataFilter, setDataFilter] = useState([]);
+  const [compare, setCompare] = useState([]);
 
   const handleClick = (path) => {
     if (path === '/comidas') {
-      fetchFoodsApi(radioBtn, usrQuery);
+      fetchFoodsApi(radioBtn, usrQuery, setDataFilter);
     } else {
-      fetchDrinksApi(radioBtn, usrQuery);
+      fetchDrinksApi(radioBtn, usrQuery, setDataFilter);
     }
   };
 
@@ -24,6 +28,13 @@ function Provider({ children }) {
     radioBtn,
     setRadioBtn,
     handleClick,
+    drinks,
+    setDrinks,
+    foods,
+    setFoods,
+    dataFilter,
+    compare,
+    setCompare,
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import '../Styles/RecipeCards.css';
 
 function Drinks() {
   const [apiDrink, setApiDrink] = useState([]);
@@ -76,7 +77,7 @@ function Drinks() {
         <h1 data-testid="page-title">Bebidas</h1>
         <Header />
       </header>
-      <div>
+      <div className="recipe-categories">
         <button
           onClick={ () => { setApiDrink(reserve); setNameVerification(''); } }
           type="submit"
@@ -97,20 +98,33 @@ function Drinks() {
           ))
         }
       </div>
-      {
-        apiDrink.map((item, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ item.id }>
-            <Link to={ `/bebidas/${item.idDrink}` }>
-              <img
-                src={ item.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ item.strDrink }
-              />
-              <p data-testid={ `${index}-card-name` }>{item.strDrink}</p>
-            </Link>
-          </div>))
-      }
-      <Footer />
+      <div className="recipes-container">
+
+        {
+          apiDrink.map((item, index) => (
+            <div
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ item.id }
+            >
+              <Link to={ `/bebidas/${item.idDrink}` }>
+                <img
+                  src={ item.strDrinkThumb }
+                  data-testid={ `${index}-card-img` }
+                  alt={ item.strDrink }
+                  width="300px"
+                />
+                <p
+                  className="card-name"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strDrink}
+                </p>
+              </Link>
+            </div>))
+        }
+        <Footer />
+      </div>
     </div>
   );
 }

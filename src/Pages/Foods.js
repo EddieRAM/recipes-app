@@ -76,7 +76,7 @@ function Foods() {
         <h1 data-testid="page-title">Comidas</h1>
         <Header />
       </header>
-      <div>
+      <div className="recipe-categories">
         <button
           onClick={ () => { setApiFood(reservation); setnameCategory(''); } }
           type="submit"
@@ -97,20 +97,31 @@ function Foods() {
           ))
         }
       </div>
-      {
-        apiFood.map((item, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ item.id }>
-            <Link to={ `/comidas/${item.idMeal}` }>
-              <img
-                src={ item.strMealThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ item.strMeal }
-              />
-              <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
-            </Link>
-          </div>))
-      }
-      <Footer />
+      <div className="recipes-container">
+        {
+          apiFood.map((item, index) => (
+            <div
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ item.id }
+            >
+              <Link to={ `/comidas/${item.idMeal}` }>
+                <img
+                  src={ item.strMealThumb }
+                  data-testid={ `${index}-card-img` }
+                  alt={ item.strMeal }
+                />
+                <p
+                  className="card-name"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strMeal}
+                </p>
+              </Link>
+            </div>))
+        }
+        <Footer />
+      </div>
     </div>
   );
 }
