@@ -1,26 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import ProfileAvatar from '../Components/ProfileAvatar';
+import Context from '../Context/Context';
 
 function ExploreDrinksByIngredients() {
   const [ingredients, setIngredients] = useState([]);
+  const { setApiDrink, setDrinkStatus } = useContext(Context);
+  const history = useHistory();
 
   useEffect(() => {
     async function getIngredients() {
       const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
       const { drinks } = await results.json();
-      let newArrayCat = [];
+      let newArray = [];
       drinks.forEach((element, index) => {
         const numberLimit = 12;
         if (index < numberLimit) {
-          newArrayCat = [...newArrayCat, element.strIngredient1];
+          newArray = [...newArray, element.strIngredient1];
         }
       });
-      setIngredients(newArrayCat);
+      setIngredients(newArray);
     }
     getIngredients();
   }, []);
-  console.log(ingredients);
+
+  async function getDrinks(ingredient) {
+    const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const { drinks } = await results.json();
+    let arrayDrinks = [];
+    drinks.forEach((element, index) => {
+      const numberLimit = 12;
+      if (index < numberLimit) {
+        arrayDrinks = [...arrayDrinks, element];
+      }
+    });
+    setApiDrink(arrayDrinks);
+  }
+
   return (
     <div>
       <h1 data-testid="page-title">Explorar Ingredientes</h1>
@@ -28,7 +45,14 @@ function ExploreDrinksByIngredients() {
       <main>
         {
           ingredients.map((item, index) => (
-            <div key={ item } data-testid={ `${index}-ingredient-card` }>
+            <div
+              key={ item }
+              data-testid={ `${index}-ingredient-card` }
+              role="presentation"
+              onClick={ () => {
+                history.push('/bebidas'); getDrinks(item); setDrinkStatus(true);
+              } }
+            >
               <img
                 src={ `https://www.thecocktaildb.com/images/ingredients/${item}-Small.png` }
                 alt={ item }
