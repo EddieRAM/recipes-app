@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default function Card() {
+export default function Card(recommendation) {
   return (
-    // <div data-testid={ `${index}-recomendation-card` }>Card</div>
-    <div>Card</div>
+    <div>
+
+    </div>
   );
 }
