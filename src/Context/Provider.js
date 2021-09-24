@@ -11,6 +11,10 @@ function Provider({ children }) {
   const [foods, setFoods] = useState([]);
   const [dataFilter, setDataFilter] = useState([]);
   const [compare, setCompare] = useState([]);
+  const [apiFood, setApiFood] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [apiDrink, setApiDrink] = useState([]);
+  const [drinkStatus, setDrinkStatus] = useState(false);
 
   const handleClick = (path) => {
     if (path === '/comidas') {
@@ -35,6 +39,14 @@ function Provider({ children }) {
     dataFilter,
     compare,
     setCompare,
+    apiFood,
+    setApiFood,
+    status,
+    setStatus,
+    apiDrink,
+    setApiDrink,
+    drinkStatus,
+    setDrinkStatus,
   };
 
   return (
