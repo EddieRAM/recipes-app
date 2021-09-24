@@ -10,27 +10,29 @@ function Header() {
   const history = useHistory();
 
   return (
-    <div className="header">
+    <div>
+      <div className="header">
+        <button
+          data-testid="profile-top-btn"
+          type="button"
+          onClick={ () => history.push('/perfil') }
+          src={ profileIcon }
+        >
+          <img src={ profileIcon } alt="Perfil" />
+        </button>
+        <span data-testid="page-title">
+          Header
+        </span>
+        <button
+          data-testid="search-top-btn"
+          type="button"
+          src={ searchIcon }
+          onClick={ () => setShowSearch(!showSearch) }
+        >
+          <img src={ searchIcon } alt="Mostrar pesquisa" />
+        </button>
+      </div>
       { showSearch ? <SearchBar /> : null }
-      <button
-        data-testid="profile-top-btn"
-        type="button"
-        onClick={ () => history.push('/perfil') }
-        src={ profileIcon }
-      >
-        <img src={ profileIcon } alt="Perfil" />
-      </button>
-      <span data-testid="page-title">
-        Header
-      </span>
-      <button
-        data-testid="search-top-btn"
-        type="button"
-        src={ searchIcon }
-        onClick={ () => setShowSearch(!showSearch) }
-      >
-        <img src={ searchIcon } alt="Mostrar pesquisa" />
-      </button>
     </div>
   );
 }
