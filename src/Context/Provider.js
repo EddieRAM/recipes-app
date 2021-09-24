@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
-import { fetchFoodsApi } from './FetchFunctions';
+import { fetchDrinksApi, fetchFoodsApi } from './FetchFunctions';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
   const [usrQuery, setSearch] = useState('');
   const [radioBtn, setRadioBtn] = useState(' ingredients');
 
-  const handleClick = () => fetchFoodsApi(radioBtn, usrQuery);
+  const handleClick = (path) => {
+    if (path === '/comidas') {
+      fetchFoodsApi(radioBtn, usrQuery);
+    } else {
+      fetchDrinksApi(radioBtn, usrQuery);
+    }
+  };
 
   const ContextValue = {
     data,
