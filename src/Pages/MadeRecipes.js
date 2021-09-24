@@ -113,7 +113,11 @@ export default function MadeRecipes() {
     </ul>
   );
 
-  const getDoneRecipes = () => (JSON.parse(localStorage.getItem('doneRecipes')));
+  const getDoneRecipes = () => {
+    if (localStorage.getItem('doneRecipes')) {
+      return JSON.parse(localStorage.getItem('doneRecipes'));
+    } return [];
+  };
 
   const showDoneRecipes = () => {
     const doneRecipes = getDoneRecipes();
