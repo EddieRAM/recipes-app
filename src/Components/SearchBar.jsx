@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../Context/Context';
 
 function SearchBar() {
+  const { radioBtn, setSearch, setRadioBtn, handleClick, usrQuery } = useContext(Context);
+
+  const searchFilter = ({ value }) => {
+    setSearch(value);
+    if (radioBtn === 'first-letter' && usrQuery.length > 0) {
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+  };
   return (
     <div>
       <label htmlFor="search-input">
@@ -8,38 +17,48 @@ function SearchBar() {
           data-testid="search-input"
           id="search-input"
           type="text"
-          placeholder="Busque sua receita"
+          onChange={ ({ target }) => searchFilter(target) }
         />
       </label>
       <form>
         <label htmlFor="name">
-          Nome
           <input
+            id="name-radio"
             data-testid="name-search-radio"
-            name="category"
-            id="name"
             type="radio"
+            value="name"
+            onChange={ ({ target: { value } }) => setRadioBtn(value) }
           />
+          Nome
         </label>
         <label htmlFor="ingredients">
-          Ingredientes
           <input
             data-testid="ingredient-search-radio"
-            name="category"
             id="ingredients"
             type="radio"
+            value="ingredients"
+            onChange={ ({ target: { value } }) => setRadioBtn(value) }
           />
+          Ingredientes
         </label>
         <label htmlFor="first-letter">
-          Primeira Letra
           <input
+            id="first-letter-radio"
             data-testid="first-letter-search-radio"
-            name="category"
-            id="first-letter"
             type="radio"
+            value="first-letter"
+            onChange={ ({ target: { value } }) => setRadioBtn(value) }
           />
+          Primeira Letra
         </label>
-        <button type="button" data-testid="exec-search-btn">Pesquisar</button>
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Pesquisar
+        </button>
+
       </form>
     </div>
   );
