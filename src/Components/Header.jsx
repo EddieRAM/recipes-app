@@ -1,15 +1,17 @@
-import React from 'react';
-import PropTypes from 'react-dom';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../Styles/Header.css';
+import SearchBar from './SearchBar';
 
 function Header() {
+  const [showSearch, setShowSearch] = useState(false);
   const history = useHistory();
 
   return (
     <div className="header">
+      { showSearch ? <SearchBar /> : null }
       <button
         data-testid="profile-top-btn"
         type="button"
@@ -25,6 +27,7 @@ function Header() {
         data-testid="search-top-btn"
         type="button"
         src={ searchIcon }
+        onClick={ () => setShowSearch(!showSearch) }
       >
         <img src={ searchIcon } alt="Mostrar pesquisa" />
       </button>
@@ -32,8 +35,8 @@ function Header() {
   );
 }
 
-Header.propTypes = {
-  toggleSearchBar: PropTypes.object,
-}.isRequired;
+// Header.propTypes = {
+//   toggleSearchBar: PropTypes.object,
+// }.isRequired;
 
 export default Header;
