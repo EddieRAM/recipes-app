@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import ProfileAvatar from '../Components/ProfileAvatar';
+import '../Styles/ExploreFoodsByArea.css';
 
 function ExploreFoodsByArea() {
   const TWELVE = 12;
   const [areas, setAreas] = useState([]);
   const [mealsList, setMealsList] = useState([]);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const getAreas = async () => {
@@ -21,10 +23,16 @@ function ExploreFoodsByArea() {
     const getMeals = async () => {
       const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json());
-      setMealsList(meals);
+      if (filter === '') {
+        setMealsList(meals);
+      } else {
+        const filteredMeals = meals.filter((recipe) => recipe.strArea === filter);
+        setMealsList(filteredMeals);
+        console.log(filteredMeals);
+      }
     };
     getMeals();
-  }, []);
+  }, [filter]);
 
   const changeFilter = (newFilter) => {
     setFilter(newFilter);
@@ -53,27 +61,32 @@ function ExploreFoodsByArea() {
     </select>
   );
 
-  const renderAllMeals = (recipesList, quantity = TWELVE) => (
-    <ul>
+  const renderMeals = (recipesList, quantity = TWELVE) => (
+    <ul className="recipes-container">
       {
         recipesList.map((recipe, index) => {
           if (index < quantity) {
             return (
-              <li
+              <Link
+                to={ `/comidas/${recipe.idMeal}` }
                 key={ recipe.idMeal }
-                data-testid={ `${index}-recipe-card` }
               >
-                <img
-                  alt="imagem da receita"
-                  src={ recipe.strMealThumb }
-                  data-testid={ `${index}-card-img` }
-                />
-                <span
-                  data-testid={ `${index}-card-name` }
+                <li
+                  data-testid={ `${index}-recipe-card` }
                 >
-                  { recipe.strMeal }
-                </span>
-              </li>
+                  <img
+                    alt={ recipe.strMeal }
+                    src={ recipe.strMealThumb }
+                    data-testid={ `${index}-card-img` }
+                    width="70%"
+                  />
+                  <span
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { recipe.strMeal }
+                  </span>
+                </li>
+              </Link>
             );
           }
           return '';
@@ -82,22 +95,12 @@ function ExploreFoodsByArea() {
     </ul>
   );
 
-  const filteredMeals = (allMeals, areaFilter) => (
-    allMeals.filter((recipe) => recipe.strArea === areaFilter)
-  );
-
-  const renderMeals = (recipes, filterRecipes) => {
-    if (filterRecipes === 'All') return renderAllMeals(recipes);
-    const filteredRecipes = filteredMeals(recipes, filterRecipes);
-    return renderAllMeals(filteredRecipes, filteredRecipes.length);
-  };
-
   return (
-    <div>
+    <div className="explore-foods-body">
       <h1 data-testid="page-title">Explorar Origem</h1>
       <ProfileAvatar />
       { renderAreaSelector(areas) }
-      { renderMeals(mealsList, filter) }
+      { renderMeals(mealsList) }
       <Footer />
     </div>
   );
