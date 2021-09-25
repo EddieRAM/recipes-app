@@ -21,14 +21,14 @@ function ExploreFoodsByArea() {
 
   useEffect(() => {
     const getMeals = async () => {
-      const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json());
       if (filter === '') {
+        const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+          .then((response) => response.json());
         setMealsList(meals);
       } else {
-        const filteredMeals = meals.filter((recipe) => recipe.strArea === filter);
-        setMealsList(filteredMeals);
-        console.log(filteredMeals);
+        const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${filter}`)
+          .then((response) => response.json());
+        setMealsList(meals);
       }
     };
     getMeals();
@@ -61,34 +61,34 @@ function ExploreFoodsByArea() {
     </select>
   );
 
+  const renderRecipe = (recipe, index) => (
+    <Link
+      to={ `/comidas/${recipe.idMeal}` }
+      key={ recipe.idMeal }
+    >
+      <li
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          alt={ recipe.strMeal }
+          src={ recipe.strMealThumb }
+          data-testid={ `${index}-card-img` }
+          width="70%"
+        />
+        <span
+          data-testid={ `${index}-card-name` }
+        >
+          { recipe.strMeal }
+        </span>
+      </li>
+    </Link>
+  );
+
   const renderMeals = (recipesList, quantity = TWELVE) => (
     <ul className="recipes-container">
       {
         recipesList.map((recipe, index) => {
-          if (index < quantity) {
-            return (
-              <Link
-                to={ `/comidas/${recipe.idMeal}` }
-                key={ recipe.idMeal }
-              >
-                <li
-                  data-testid={ `${index}-recipe-card` }
-                >
-                  <img
-                    alt={ recipe.strMeal }
-                    src={ recipe.strMealThumb }
-                    data-testid={ `${index}-card-img` }
-                    width="70%"
-                  />
-                  <span
-                    data-testid={ `${index}-card-name` }
-                  >
-                    { recipe.strMeal }
-                  </span>
-                </li>
-              </Link>
-            );
-          }
+          if (index < quantity) return renderRecipe(recipe, index);
           return '';
         })
       }
