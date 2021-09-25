@@ -8,7 +8,7 @@ function ExploreFoodsByArea() {
   const TWELVE = 12;
   const [areas, setAreas] = useState([]);
   const [mealsList, setMealsList] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('All');
 
   useEffect(() => {
     const getAreas = async () => {
@@ -21,7 +21,7 @@ function ExploreFoodsByArea() {
 
   useEffect(() => {
     const getMeals = async () => {
-      if (filter === '') {
+      if (filter === 'All') {
         const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
           .then((response) => response.json());
         setMealsList(meals);
@@ -44,6 +44,12 @@ function ExploreFoodsByArea() {
       value={ filter }
       onChange={ ({ target }) => changeFilter(target.value) }
     >
+      <option
+        value="All"
+        data-testid="All-option"
+      >
+        All
+      </option>
       {
         areasList.map((area) => {
           const areaName = area.strArea;
