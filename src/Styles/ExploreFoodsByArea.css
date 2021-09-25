@@ -1,0 +1,17 @@
+.explore-foods-body {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.recipes-container {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
