@@ -14,6 +14,7 @@ import MadeRecipes from './Pages/MadeRecipes';
 import ExploreFoodsByIngredients from './Pages/ExploreFoodsByIngredients';
 import ExploreDrinksByIngredients from './Pages/ExploreDrinksByIngredients';
 import ExploreFoodsByArea from './Pages/ExploreFoodsByArea';
+import NotFound from './Pages/NotFound';
 import Provider from './Context/Provider';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ MadeRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </Provider>
   );
