@@ -1,25 +1,115 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import '../Styles/Progress.css';
 
 function ProgressFood({ match: { params: { id } } }) {
   const [apiId, setApiID] = useState({});
-  const [locationStorage, setlocationStorage] = useState({
+  const [array, setArray] = useState([]);
+  const [objIngredient, setObjIngredient] = useState({});
+  const [ingredients, setIngredients] = useState({});
+  console.log(ingredients);
+  const [arrayStorage, setArrayStorage] = useState([]);
+  const [localStorageS, setLocalStorage] = useState({
     cocktails: {},
     meals: {},
   });
 
-  function changeLocationStorage(item) {
-    console.log(item);
-  }
+  useEffect(() => {
+    const itemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (itemLocalStorage !== null) {
+      setLocalStorage(itemLocalStorage);
+      const { meals } = itemLocalStorage;
+      if (meals !== {} && meals[id]) {
+        setArrayStorage(meals[id]);
+      }
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const arr = arrayStorage;
+    const ing = objIngredient;
+    if (arr !== [] && ing !== {}) {
+      arr.forEach((element) => {
+        ing[element] = true;
+      });
+      setIngredients(ing);
+    }
+  }, [objIngredient, arrayStorage]);
+
+  useEffect(() => {
+    const save = localStorageS;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(save));
+  }, [localStorageS]);
 
   useEffect(() => {
     async function ApiId() {
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const { meals } = await results.json();
       setApiID(meals[0]);
+      const arrayApi = Object.entries(meals[0]);
+      const ingredientsF = arrayApi.filter((iten) => iten[0].includes('strIngredient')
+      && iten[1] !== '' && iten[1] !== null);
+      const newObj = {};
+      const arrayNew = [];
+      ingredientsF.forEach((element) => {
+        const iten = element[1];
+        arrayNew.push(iten);
+        newObj[iten] = false;
+      });
+      setIngredients(newObj);
+      setObjIngredient(newObj);
+      setArray(arrayNew);
     }
     ApiId();
   }, [id]);
+
+  function changeLocationStorageFalse({ target }) {
+    const { checked, name } = target;
+    if (checked === false) {
+      const filterLocalMeals = localStorageS.meals[id].filter((e) => e !== name);
+      setLocalStorage({
+        ...localStorageS,
+        meals: {
+          ...localStorageS.meals,
+          [id]: filterLocalMeals,
+        },
+      });
+    }
+  }
+
+  function changeLocationStorageTrue({ target }) {
+    const { checked, name } = target;
+    if (checked === true) {
+      if (localStorageS.meals[id] !== [] && localStorageS.meals[id]) {
+        const findMealId = localStorageS.meals[id].find((e) => e === name);
+        if (!findMealId) {
+          setLocalStorage({
+            ...localStorageS,
+            meals: {
+              ...localStorageS.meals,
+              [id]: [...localStorageS.meals[id], name],
+            },
+          });
+        }
+      } else {
+        setLocalStorage({
+          ...localStorageS,
+          meals: {
+            ...localStorageS.meals,
+            [id]: [name],
+          },
+        });
+      }
+    }
+  }
+
+  function changeChecked({ target }) {
+    const { checked, name } = target;
+    setIngredients({
+      ...ingredients,
+      [name]: checked,
+    });
+  }
 
   return (
     <div>
@@ -30,24 +120,28 @@ function ProgressFood({ match: { params: { id } } }) {
       <p data-testid="recipe-category">{apiId.strCategory}</p>
       <div>
         {
-          Object.entries(apiId)
-            .filter((iten) => iten[0]
-              .includes('strIngredient') && iten[1] !== '' && iten[1] !== null)
-            .map((element, index) => (
+          array.map((element, index) => (
+            <div key={ index }>
               <label
-                key={ index }
-                htmlFor={ element[0] }
+                htmlFor={ element }
                 data-testid={ `${index}-ingredient-step` }
+                className={ ingredients[element] === true ? 'line' : 'lineNone' }
               >
                 <input
                   type="checkbox"
-                  id={ element[0] }
-                  name={ element[0] }
-                  onClick={ () => changeLocationStorage(element[1]) }
+                  id={ element }
+                  checked={ ingredients[element] }
+                  name={ element }
+                  onChange={ (event) => {
+                    changeChecked(event);
+                    changeLocationStorageTrue(event);
+                    changeLocationStorageFalse(event);
+                  } }
                 />
-                {element[1]}
+                {element}
               </label>
-            ))
+            </div>
+          ))
         }
       </div>
       <p data-testid="instructions">{apiId.strInstructions}</p>
