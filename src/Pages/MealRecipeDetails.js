@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useState } from 'react';
 import { DrinksRecommendation, MealRecipeById } from '../API';
-import Card from '../components/Card';
-import MealIngredientsDetails from '../components/MealIngredientsDetails';
+import DrinksCarousel from '../components/DrinksCarousel';
+import IngredientsDetails from '../components/IngredientsDetails';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -67,7 +67,6 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
         localStorage.setItem('favoriteRecipes', JSON.stringify(list));
       }
       if (favoritesList.length === 1) {
-        console.log('1');
         localStorage.removeItem('favoriteRecipes');
       }
     } else {
@@ -105,11 +104,11 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
         <img src={ favorite ? blackHeartIcon : whiteHeartIcon } data-testid="favorite-btn" alt="fav" />
       </button>
       <h3 data-testid="recipe-category">{mealRecipe[0].strCategory}</h3>
-      <MealIngredientsDetails ingredients={ mealRecipe[0] } />
+      <IngredientsDetails ingredients={ mealRecipe[0] } />
       <p data-testid="instructions">{mealRecipe[0].strInstructions}</p>
       <embed src={ `https://www.youtube.com/embed/${video()}` } data-testid="video" width="425" height="344" />
       <div>
-        <Card recommendation={ drinksRecommendation } />
+        <DrinksCarousel recommendation={ drinksRecommendation } />
       </div>
       <button onClick={ () => history.push(`/comidas/${id}/in-progress`) } className="start-btn" type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>

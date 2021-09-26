@@ -1,10 +1,12 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { MealsRecommendation, DrinkRecipeById } from '../API';
-import Card from '../components/Card';
-import DrinkIngredientsDetails from '../components/DrinkIngredientsDetails';
+// import DrinkRecipeInfo from '../components/DrinkRecipeInfo';
+import MealsCarousel from '../components/MealsCarousel';
+import IngredientsDetails from '../components/IngredientsDetails';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import { handleFavorite, ifFavoriteFalse } from '../DrinkRecipesDetailsFunctions';
 
 export default function DrinkRecipeDetails({ match: { params: { id } }, history }) {
   const [favorite, setFavorite] = useState(false);
@@ -31,6 +33,7 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
 
   useEffect(() => {
     const fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(fav);
     setFavoritesList(fav);
     if (fav !== null) {
       fav.forEach((item) => {
@@ -53,6 +56,34 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
     setMessage(true);
   }
 
+  function favDrink() {
+    const drink = {
+      id: drinkRecipe[0].idDrink,
+      area: '',
+      type: 'bebida',
+      category: drinkRecipe[0].strCategory,
+      alcoholicOrNot: drinkRecipe[0].strAlcoholic,
+      name: drinkRecipe[0].strDrink,
+      image: drinkRecipe[0].strDrinkThumb,
+    };
+    return drink;
+  }
+
+  function ifFavoriteFalse() {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([favDrink()]));
+    } else {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([
+          ...JSON.parse(localStorage.getItem('favoriteRecipes')),
+          favDrink(),
+        ]),
+      );
+    }
+    setFavorite(true);
+  }
+
   function handleFavorite() {
     if (favorite) {
       setFavorite(false);
@@ -61,50 +92,52 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
         localStorage.setItem('favoriteRecipes', JSON.stringify(list));
       }
       if (favoritesList.length === 1) {
-        console.log('1');
         localStorage.removeItem('favoriteRecipes');
       }
     } else {
-      const drink = {
-        id: drinkRecipe[0].idDrink,
-        area: '',
-        type: 'bebida',
-        category: drinkRecipe[0].strCategory,
-        alcoholicOrNot: drinkRecipe[0].strAlcoholic,
-        name: drinkRecipe[0].strDrink,
-        image: drinkRecipe[0].strDrinkThumb,
-      };
-      if (localStorage.getItem('favoriteRecipes') === null) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify([drink]));
-      } else {
-        localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify([
-            ...JSON.parse(localStorage.getItem('favoriteRecipes')),
-            drink,
-          ]),
-        );
-      }
-      setFavorite(true);
+      ifFavoriteFalse();
     }
   }
 
   return (
     <div>
-      <img src={ `${drinkRecipe[0].strDrinkThumb}` } data-testid="recipe-photo" alt="recipe" />
+      <img
+        src={ `${drinkRecipe[0].strDrinkThumb}` }
+        data-testid="recipe-photo"
+        alt="recipe"
+      />
       <h1 data-testid="recipe-title">{drinkRecipe[0].strDrink}</h1>
       <button onClick={ copyLink } type="button" data-testid="share-btn">Share</button>
       <p>{message ? 'Link copiado!' : ''}</p>
       <button onClick={ handleFavorite } type="button">
-        <img src={ favorite ? blackHeartIcon : whiteHeartIcon } data-testid="favorite-btn" alt="fav" />
+        <img
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          data-testid="favorite-btn"
+          alt="fav"
+        />
       </button>
       <h3 data-testid="recipe-category">{drinkRecipe[0].strAlcoholic}</h3>
-      <DrinkIngredientsDetails ingredients={ drinkRecipe[0] } />
+      <IngredientsDetails ingredients={ drinkRecipe } />
       <p data-testid="instructions">{drinkRecipe[0].strInstructions}</p>
-      <div>
-        <Card recommendation={ mealsRecommendation } />
-      </div>
-      <button onClick={ () => history.push(`/bebidas/${id}/in-progress`) } className="start-btn" type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <MealsCarousel recommendation={ mealsRecommendation } />
+      <div />
+      <button
+        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
+
+DrinkRecipeDetails.propTypes = {
+  match: PropTypes.objectOf({
+    params: PropTypes.objectOf({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};

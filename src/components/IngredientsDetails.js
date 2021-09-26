@@ -1,8 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function MealIngredientsDetails({ ingredients }) {
+export default function IngredientsDetails({ ingredients }) {
   if (!ingredients) {
     return <div>Loading...</div>;
+  }
+
+  function ingredientItem(ingredient, index) {
+    return (
+      <li
+        key={ ingredient[1] + index }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
+        {ingredient[1]}
+      </li>);
   }
 
   return (
@@ -13,7 +24,7 @@ export default function MealIngredientsDetails({ ingredients }) {
             .filter((item) => item[0]
               .includes('strIngredient') && item[1] && item[1].length > 1)
             .map((ingredient, index) => (
-              <li key={ ingredient[1] + index } data-testid={ `${index}-ingredient-name-and-measure` }>{ingredient[1]}</li>
+              ingredientItem(ingredient, index)
             ))
         }
       </ul>
@@ -23,10 +34,14 @@ export default function MealIngredientsDetails({ ingredients }) {
             .filter((item) => item[0]
               .includes('strMeasure') && item[1] && item[1].length > 1)
             .map((ingredient, index) => (
-              <li key={ ingredient[1] + index } data-testid={ `${index}-ingredient-name-and-measure` }>{ingredient[1]}</li>
+              ingredientItem(ingredient, index)
             ))
         }
       </ul>
     </div>
   );
 }
+
+IngredientsDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
