@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import Context from '../Context/Context';
 
 function Foods() {
-  const [apiFood, setApiFood] = useState([]);
+  const { apiFood, setApiFood, status, setStatus } = useContext(Context);
   const [reservation, setReservation] = useState([]);
   const [ApiCategory, setApiCategory] = useState([]);
   const [nameCategory, setnameCategory] = useState('');
@@ -23,8 +24,8 @@ function Foods() {
       setApiFood(newArray);
       setReservation(newArray);
     }
-    MyApiFood();
-  }, []);
+    if (status === false) MyApiFood();
+  }, [setApiFood, status]);
 
   useEffect(() => {
     async function MyApiCategory() {
@@ -59,7 +60,7 @@ function Foods() {
       }
     }
     CallCategoryAPI();
-  }, [nameCategory]);
+  }, [nameCategory, setApiFood]);
 
   function verificationNameCategory(item) {
     if (item !== nameCategory) {
@@ -76,9 +77,11 @@ function Foods() {
         <h1 data-testid="page-title">Comidas</h1>
         <Header />
       </header>
-      <div>
+      <div className="recipe-categories">
         <button
-          onClick={ () => { setApiFood(reservation); setnameCategory(''); } }
+          onClick={ () => {
+            setApiFood(reservation); setnameCategory(''); setStatus(false);
+          } }
           type="submit"
           data-testid="All-category-filter"
         >
@@ -97,20 +100,31 @@ function Foods() {
           ))
         }
       </div>
-      {
-        apiFood.map((item, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ item.id }>
-            <Link to={ `/comidas/${item.idMeal}` }>
-              <img
-                src={ item.strMealThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ item.strMeal }
-              />
-              <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
-            </Link>
-          </div>))
-      }
-      <Footer />
+      <div className="recipes-container">
+        {
+          apiFood.map((item, index) => (
+            <div
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ item.id }
+            >
+              <Link to={ `/comidas/${item.idMeal}` }>
+                <img
+                  src={ item.strMealThumb }
+                  data-testid={ `${index}-card-img` }
+                  alt={ item.strMeal }
+                />
+                <p
+                  className="card-name"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strMeal}
+                </p>
+              </Link>
+            </div>))
+        }
+        <Footer />
+      </div>
     </div>
   );
 }

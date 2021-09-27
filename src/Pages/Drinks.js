@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import '../Styles/RecipeCards.css';
+import Context from '../Context/Context';
 
 function Drinks() {
-  const [apiDrink, setApiDrink] = useState([]);
+  const { apiDrink, setApiDrink, drinkStatus, setDrinkStatus } = useContext(Context);
   const [reserve, setReserve] = useState([]);
-  const [apiCategoryDrink, setCategoryDrink] = useState([]);
+  const [apiCategoryDrink, setApiCategoryDrink] = useState([]);
   const [verification, setNameVerification] = useState('');
 
   useEffect(() => {
@@ -23,8 +25,8 @@ function Drinks() {
       setApiDrink(newArray);
       setReserve(newArray);
     }
-    MyApiDrink();
-  }, []);
+    if (drinkStatus === false) MyApiDrink();
+  }, [setApiDrink, drinkStatus]);
 
   useEffect(() => {
     async function MyApiCategoryDrink() {
@@ -37,7 +39,7 @@ function Drinks() {
           newArrayCat = [...newArrayCat, element.strCategory];
         }
       });
-      setCategoryDrink(newArrayCat);
+      setApiCategoryDrink(newArrayCat);
     }
     MyApiCategoryDrink();
   }, []);
@@ -59,7 +61,7 @@ function Drinks() {
       }
     }
     CallCategoryAPI();
-  }, [verification]);
+  }, [verification, setApiDrink]);
 
   function checkNameToReleaseApi(item) {
     if (item !== verification) {
@@ -76,9 +78,11 @@ function Drinks() {
         <h1 data-testid="page-title">Bebidas</h1>
         <Header />
       </header>
-      <div>
+      <div className="recipe-categories">
         <button
-          onClick={ () => { setApiDrink(reserve); setNameVerification(''); } }
+          onClick={ () => {
+            setApiDrink(reserve); setNameVerification(''); setDrinkStatus(false);
+          } }
           type="submit"
           data-testid="All-category-filter"
         >
@@ -97,20 +101,33 @@ function Drinks() {
           ))
         }
       </div>
-      {
-        apiDrink.map((item, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ item.id }>
-            <Link to={ `/bebidas/${item.idDrink}` }>
-              <img
-                src={ item.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ item.strDrink }
-              />
-              <p data-testid={ `${index}-card-name` }>{item.strDrink}</p>
-            </Link>
-          </div>))
-      }
-      <Footer />
+      <div className="recipes-container">
+
+        {
+          apiDrink.map((item, index) => (
+            <div
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ item.id }
+            >
+              <Link to={ `/bebidas/${item.idDrink}` }>
+                <img
+                  src={ item.strDrinkThumb }
+                  data-testid={ `${index}-card-img` }
+                  alt={ item.strDrink }
+                  width="300px"
+                />
+                <p
+                  className="card-name"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strDrink}
+                </p>
+              </Link>
+            </div>))
+        }
+        <Footer />
+      </div>
     </div>
   );
 }
