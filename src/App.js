@@ -19,6 +19,8 @@ import ExploreFoodsByArea from './Pages/ExploreFoodsByArea';
 import NotFound from './Pages/NotFound';
 import Provider from './Context/Provider';
 import './Styles/RecipeDetails.css';
+import ProgressDrink from './Pages/ProgressDrink';
+import ProgressFood from './Pages/ProgressFood';
 
 function App() {
   return (
@@ -37,8 +39,14 @@ function App() {
           path="/bebidas/:id"
           component={ (props) => <DrinkRecipeDetails { ...props } /> }
         />
-        <Route path="/comidas/:id/in-progress" />
-        <Route path="/bebidas/:id/in-progress" />
+        <Route
+          path="/comidas/:id/in-progress"
+          component={ (props) => <ProgressFood { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          component={ (props) => <ProgressDrink { ...props } /> }
+        />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
