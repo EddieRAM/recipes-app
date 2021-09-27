@@ -14,43 +14,48 @@ import MadeRecipes from './Pages/MadeRecipes';
 import ExploreFoodsByIngredients from './Pages/ExploreFoodsByIngredients';
 import ExploreDrinksByIngredients from './Pages/ExploreDrinksByIngredients';
 import ExploreFoodsByArea from './Pages/ExploreFoodsByArea';
+import NotFound from './Pages/NotFound';
+import Provider from './Context/Provider';
 import ProgressDrink from './Pages/ProgressDrink';
 import ProgressFood from './Pages/ProgressFood';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" component={ Foods } />
-      <Route exact path="/bebidas" component={ Drinks } />
-      <Route exact path="/comidas/:id" />
-      <Route exact path="/bebidas/:id" />
-      <Route
-        path="/comidas/:id/in-progress"
-        component={ (props) => <ProgressFood { ...props } /> }
-      />
-      <Route
-        path="/bebidas/:id/in-progress"
-        component={ (props) => <ProgressDrink { ...props } /> }
-      />
-      <Route exact path="/explorar" component={ Explore } />
-      <Route exact path="/explorar/comidas" component={ ExploreFood } />
-      <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-      <Route
-        exact
-        path="/explorar/comidas/ingredientes"
-        component={ ExploreFoodsByIngredients }
-      />
-      <Route
-        exact
-        path="/explorar/bebidas/ingredientes"
-        component={ ExploreDrinksByIngredients }
-      />
-      <Route exact path="/explorar/comidas/area" component={ ExploreFoodsByArea } />
-      <Route path="/perfil" component={ Profile } />
-      <Route path="/receitas-feitas" component={ MadeRecipes } />
-      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-    </Switch>
+    <Provider>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/comidas/:id" />
+        <Route exact path="/bebidas/:id" />
+        <Route
+          path="/comidas/:id/in-progress"
+          component={ (props) => <ProgressFood { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          component={ (props) => <ProgressDrink { ...props } /> }
+        />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/explorar/comidas" component={ ExploreFood } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ ExploreFoodsByIngredients }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ ExploreDrinksByIngredients }
+        />
+        <Route exact path="/explorar/comidas/area" component={ ExploreFoodsByArea } />
+        <Route path="/perfil" component={ Profile } />
+        <Route path="/receitas-feitas" component={ MadeRecipes } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
+      </Switch>
+    </Provider>
   );
 }
 

@@ -1,8 +1,8 @@
 .header {
   align-items: center;
-  background-color: rgb(54, 211, 14);
   display: flex;
+  flex-flow: row wrap;
   height: 2.5rem;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100vw;
 }
