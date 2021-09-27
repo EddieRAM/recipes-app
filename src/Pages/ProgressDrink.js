@@ -62,6 +62,18 @@ function ProgressDrink({ match: { params: { id } }, history }) {
     ApiId();
   }, [id]);
 
+  useEffect(() => {
+    let ingTrue = 0;
+    Object.entries(ingredients).forEach((element) => {
+      if (element[1] === true) {
+        ingTrue += 1;
+      }
+    });
+    if (ingTrue === arrayIngr.length && arrayIngr.length !== 0) {
+      setDisabled('');
+    }
+  }, [ingredients, arrayIngr]);
+
   function changeLocationStorageFalse({ target }) {
     const { checked, name } = target;
     if (checked === false) {
@@ -104,18 +116,6 @@ function ProgressDrink({ match: { params: { id } }, history }) {
       }
     }
   }
-
-  useEffect(() => {
-    let ingTrue = 0;
-    Object.entries(ingredients).forEach((element) => {
-      if (element[1] === true) {
-        ingTrue += 1;
-      }
-    });
-    if (ingTrue === Object.keys(ingredients).length) {
-      setDisabled('');
-    }
-  }, [ingredients]);
 
   function changeChecked({ target }) {
     const { checked, name } = target;
