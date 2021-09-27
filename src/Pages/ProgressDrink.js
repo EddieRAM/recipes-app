@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function ProgressDrink({ match: { params: { id } } }) {
+function ProgressDrink({ match: { params: { id } }, history }) {
   const [apiId, setApiID] = useState({});
   const [arrayIngr, setArrayIngr] = useState([]);
   const [objIngredient, setObjIngredient] = useState({});
   const [ingredients, setIngredients] = useState({});
+  const [disabled, setDisabled] = useState('disabled');
   const [arrayStorageIngr, setArrayStorageIngr] = useState([]);
   const [localStorageS, setLocalStorage] = useState({
     cocktails: {},
@@ -73,6 +74,7 @@ function ProgressDrink({ match: { params: { id } } }) {
           [id]: filterLocalCock,
         },
       });
+      setDisabled('disabled');
     }
   }
 
@@ -94,7 +96,7 @@ function ProgressDrink({ match: { params: { id } } }) {
       } else {
         setLocalStorage({
           ...localStorageS,
-          meals: {
+          cocktails: {
             ...localCocktail,
             [id]: [name],
           },
@@ -102,6 +104,18 @@ function ProgressDrink({ match: { params: { id } } }) {
       }
     }
   }
+
+  useEffect(() => {
+    let ingTrue = 0;
+    Object.entries(ingredients).forEach((element) => {
+      if (element[1] === true) {
+        ingTrue += 1;
+      }
+    });
+    if (ingTrue === Object.keys(ingredients).length) {
+      setDisabled('');
+    }
+  }, [ingredients]);
 
   function changeChecked({ target }) {
     const { checked, name } = target;
@@ -145,7 +159,14 @@ function ProgressDrink({ match: { params: { id } } }) {
         }
       </div>
       <p data-testid="instructions">{apiId.strInstructions}</p>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ disabled }
+        onClick={ () => { history.push('/receitas-feitas'); } }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
@@ -154,6 +175,7 @@ ProgressDrink.propTypes = {
   match: PropTypes.objectOf(
     PropTypes.object,
   ).isRequired,
+  history: PropTypes.arrayOf.isRequired,
 };
 
 export default ProgressDrink;

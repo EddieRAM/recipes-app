@@ -2,17 +2,39 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Styles/Progress.css';
 
-function ProgressFood({ match: { params: { id } } }) {
+function ProgressFood({ match: { params: { id } }, history }) {
   const [apiId, setApiID] = useState({});
-  const [array, setArray] = useState([]);
+  const [arrayIngr, setArrayIngr] = useState([]);
   const [objIngredient, setObjIngredient] = useState({});
   const [ingredients, setIngredients] = useState({});
-  console.log(ingredients);
+  const [disabled, setDisabled] = useState('disabled');
   const [arrayStorage, setArrayStorage] = useState([]);
   const [localStorageS, setLocalStorage] = useState({
     cocktails: {},
     meals: {},
   });
+
+  useEffect(() => {
+    async function ApiId() {
+      const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const { meals } = await results.json();
+      setApiID(meals[0]);
+      const ingredientFilter = Object.entries(meals[0])
+        .filter((iten) => iten[0].includes('strIngredient')
+      && iten[1] !== '' && iten[1] !== null);
+      const newObj = {};
+      const arrayNew = [];
+      ingredientFilter.forEach((element) => {
+        const iten = element[1];
+        arrayNew.push(iten);
+        newObj[iten] = false;
+      });
+      setIngredients(newObj);
+      setObjIngredient(newObj);
+      setArrayIngr(arrayNew);
+    }
+    ApiId();
+  }, [id]);
 
   useEffect(() => {
     const itemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -42,26 +64,16 @@ function ProgressFood({ match: { params: { id } } }) {
   }, [localStorageS]);
 
   useEffect(() => {
-    async function ApiId() {
-      const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      const { meals } = await results.json();
-      setApiID(meals[0]);
-      const arrayApi = Object.entries(meals[0]);
-      const ingredientsF = arrayApi.filter((iten) => iten[0].includes('strIngredient')
-      && iten[1] !== '' && iten[1] !== null);
-      const newObj = {};
-      const arrayNew = [];
-      ingredientsF.forEach((element) => {
-        const iten = element[1];
-        arrayNew.push(iten);
-        newObj[iten] = false;
-      });
-      setIngredients(newObj);
-      setObjIngredient(newObj);
-      setArray(arrayNew);
+    let ingTrue = 0;
+    Object.entries(ingredients).forEach((element) => {
+      if (element[1] === true) {
+        ingTrue += 1;
+      }
+    });
+    if (ingTrue === arrayIngr.length && arrayIngr.length !== 0) {
+      setDisabled('');
     }
-    ApiId();
-  }, [id]);
+  }, [ingredients, arrayIngr]);
 
   function changeLocationStorageFalse({ target }) {
     const { checked, name } = target;
@@ -74,6 +86,7 @@ function ProgressFood({ match: { params: { id } } }) {
           [id]: filterLocalMeals,
         },
       });
+      setDisabled('disabled');
     }
   }
 
@@ -120,7 +133,7 @@ function ProgressFood({ match: { params: { id } } }) {
       <p data-testid="recipe-category">{apiId.strCategory}</p>
       <div>
         {
-          array.map((element, index) => (
+          arrayIngr.map((element, index) => (
             <div key={ index }>
               <label
                 htmlFor={ element }
@@ -145,7 +158,14 @@ function ProgressFood({ match: { params: { id } } }) {
         }
       </div>
       <p data-testid="instructions">{apiId.strInstructions}</p>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ disabled }
+        onClick={ () => { history.push('/receitas-feitas'); } }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
@@ -154,6 +174,7 @@ ProgressFood.propTypes = {
   match: PropTypes.objectOf(
     PropTypes.object,
   ).isRequired,
+  history: PropTypes.arrayOf.isRequired,
 };
 
 export default ProgressFood;
