@@ -5,8 +5,7 @@ import 'react-glidejs/dist/index.css';
 
 export default function DrinksCarousel({ recommendation }) {
   const gliderRef = useRef(null);
-  if (!recommendation.length) {
-    console.log(recommendation);
+  if (!recommendation) {
     return <div>Loading...</div>;
   }
 
@@ -22,7 +21,7 @@ export default function DrinksCarousel({ recommendation }) {
           timeout: 500,
           classNames: 'fade',
         } }
-        perView={ 2 }
+        perView={ 1 }
         startAt={ 0 }
         focusAt={ 0 }
         rewind="false"

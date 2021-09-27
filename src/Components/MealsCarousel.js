@@ -21,7 +21,7 @@ export default function MealsCarousel({ recommendation }) {
           timeout: 500,
           classNames: 'fade',
         } }
-        perView={ 2 }
+        perView={ 1 }
         startAt={ 0 }
         focusAt={ 0 }
         rewind="false"
