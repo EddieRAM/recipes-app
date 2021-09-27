@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/Footer';
-import ProfileAvatar from '../Components/ProfileAvatar';
+import Header from '../Components/Header';
 import '../Styles/ExploreFoodsByArea.css';
 
 function ExploreFoodsByArea() {
@@ -104,7 +104,7 @@ function ExploreFoodsByArea() {
   return (
     <div className="explore-foods-body">
       <h1 data-testid="page-title">Explorar Origem</h1>
-      <ProfileAvatar />
+      <Header />
       { renderAreaSelector(areas) }
       { renderMeals(mealsList) }
       <Footer />
