@@ -1,0 +1,7 @@
+.line {
+  text-decoration: line-through;
+}
+
+.lineNone {
+  text-decoration: none solid;
+}
