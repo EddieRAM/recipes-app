@@ -13,12 +13,13 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
 
   useEffect(() => {
     async function fetch() {
-      const { drinks } = await DrinkRecipeById(id);
-      setDrinkRecipe(drinks);
+      const drinks = await DrinkRecipeById(id);
+      const drink = drinks.drinks ? drinks.drinks : {};
+      setDrinkRecipe(drink);
     }
     fetch();
   }, [id]);
-
+  console.log(drinkRecipe);
   useEffect(() => {
     async function fetch() {
       const { meals } = await MealsRecommendation();
