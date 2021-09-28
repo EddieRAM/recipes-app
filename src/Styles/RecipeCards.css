@@ -1,4 +1,5 @@
 .recipes-container {
+  border: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,13 +10,31 @@
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  margin: 10px;
-  padding-bottom: 50px;
+  margin: 50px;
+}
+
+.recipe-categories button {
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  background-color: #ffe5ad;
+  border: none;
+  border-radius: 5px;
+  color: #e45d45;
+  display: flex;
+  flex-flow: column wrap;
+  font-weight: 600;
+  margin-bottom: 5px;
+  width: 80%;
+}
+
+.recipe-categories button:hover {
+  background-color: #4444;
 }
 
 .recipe-card {
+  background-color: #ffe5ad;
   border-radius: 10px;
-  box-shadow: 2px 8px 10px #ddd;
   display: inline-block;
   flex-direction: row;
   margin: 10px;
@@ -32,7 +51,7 @@ a:link {
 
 .card-name {
   align-items: center;
-  color: #757575;
+  color: #e45d45;
   display: flex;
   flex-direction: column;
   font-weight: 900;

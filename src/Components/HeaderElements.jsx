@@ -3,10 +3,12 @@ import PropTypes from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 
-import '../Styles/Header.css';
+import '../Styles/HeaderElements.css';
 
-function HeaderElements() {
+function HeaderElements(props) {
   const history = useHistory();
+
+  const { title } = props;
 
   return (
     <div className="header">
@@ -20,7 +22,7 @@ function HeaderElements() {
         <img src={ profileIcon } alt="Perfil" />
       </button>
       <span className="header-span" data-testid="page-title">
-        Header
+        {title}
       </span>
     </div>
   );

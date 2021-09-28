@@ -21,7 +21,7 @@ function Header() {
           <img src={ profileIcon } alt="Perfil" />
         </button>
         <span data-testid="page-title">
-          Header
+          Perfil / Busca
         </span>
         <button
           data-testid="search-top-btn"
@@ -36,9 +36,5 @@ function Header() {
     </div>
   );
 }
-
-// Header.propTypes = {
-//   toggleSearchBar: PropTypes.object,
-// }.isRequired;
 
 export default Header;
