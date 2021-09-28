@@ -18,6 +18,9 @@ function Provider({ children }) {
   const [reservation, setReservation] = useState([]);
   const [ApiCategory, setApiCategory] = useState([]);
   const [nameCategory, setnameCategory] = useState('');
+  const [reserve, setReserve] = useState([]);
+  const [apiCategoryDrink, setApiCategoryDrink] = useState([]);
+  const [verification, setNameVerification] = useState('');
 
   useEffect(() => {
     async function MyApiFood() {
@@ -71,6 +74,58 @@ function Provider({ children }) {
     CallCategoryAPI();
   }, [nameCategory]);
 
+  useEffect(() => {
+    async function MyApiDrink() {
+      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const Apidrinks = await results.json();
+      let newArray = [];
+      Apidrinks.drinks.forEach((element, index) => {
+        const numberLimits = 12;
+        if (index < numberLimits) {
+          newArray = [...newArray, element];
+        }
+      });
+      setApiDrink(newArray);
+      setReserve(newArray);
+    }
+    if (drinkStatus === false) MyApiDrink();
+  }, [drinkStatus]);
+
+  useEffect(() => {
+    async function MyApiCategoryDrink() {
+      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+      const Catdrinks = await results.json();
+      let newArrayCats = [];
+      Catdrinks.drinks.forEach((element, index) => {
+        const numberLi = 5;
+        if (index < numberLi) {
+          newArrayCats = [...newArrayCats, element.strCategory];
+        }
+      });
+      setApiCategoryDrink(newArrayCats);
+    }
+    MyApiCategoryDrink();
+  }, []);
+
+  useEffect(() => {
+    async function CallCategoryAPI() {
+      if (verification !== '') {
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${verification}`;
+        const results = await fetch(url);
+        const Filterdrinks = await results.json();
+        let newAr = [];
+        Filterdrinks.drinks.forEach((element, index) => {
+          const numberMag = 12;
+          if (index < numberMag) {
+            newAr = [...newAr, element];
+          }
+        });
+        setApiDrink(newAr);
+      }
+    }
+    CallCategoryAPI();
+  }, [verification]);
+
   const handleClick = (path) => {
     if (path === '/comidas') {
       fetchFoodsApi(radioBtn, usrQuery, setDataFilter);
@@ -106,6 +161,10 @@ function Provider({ children }) {
     ApiCategory,
     setnameCategory,
     nameCategory,
+    reserve,
+    apiCategoryDrink,
+    setNameVerification,
+    verification,
   };
 
   return (
