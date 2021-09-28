@@ -1,66 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import Context from '../Context/Context';
 
 function Foods() {
-  const { apiFood, setApiFood, status, setStatus } = useContext(Context);
-  const [reservation, setReservation] = useState([]);
-  const [ApiCategory, setApiCategory] = useState([]);
-  const [nameCategory, setnameCategory] = useState('');
-
-  useEffect(() => {
-    async function MyApiFood() {
-      const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await results.json();
-      let newArray = [];
-      meals.forEach((element, index) => {
-        const numberLimit = 12;
-        if (index < numberLimit) {
-          newArray = [...newArray, element];
-        }
-      });
-      setApiFood(newArray);
-      setReservation(newArray);
-    }
-    if (status === false) MyApiFood();
-  }, [setApiFood, status]);
-
-  useEffect(() => {
-    async function MyApiCategory() {
-      const results = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-      const { meals } = await results.json();
-      let newArrayCat = [];
-      meals.forEach((element, index) => {
-        const numberLimit = 5;
-        if (index < numberLimit) {
-          newArrayCat = [...newArrayCat, element.strCategory];
-        }
-      });
-      setApiCategory(newArrayCat);
-    }
-    MyApiCategory();
-  }, []);
-
-  useEffect(() => {
-    async function CallCategoryAPI() {
-      if (nameCategory !== '') {
-        const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${nameCategory}`;
-        const results = await fetch(url);
-        const { meals } = await results.json();
-        let newS = [];
-        meals.forEach((element, index) => {
-          const number = 12;
-          if (index < number) {
-            newS = [...newS, element];
-          }
-        });
-        setApiFood(newS);
-      }
-    }
-    CallCategoryAPI();
-  }, [nameCategory, setApiFood]);
+  const {
+    apiFood,
+    setApiFood,
+    setStatus,
+    reservation,
+    ApiCategory,
+    setnameCategory,
+    nameCategory,
+  } = useContext(Context);
 
   function verificationNameCategory(item) {
     if (item !== nameCategory) {
