@@ -4,12 +4,12 @@ import { MealsRecommendation, DrinkRecipeById } from '../API';
 import MealsCarousel from '../Components/MealsCarousel';
 import IngredientsDetails from '../Components/IngredientsDetails';
 import DrinkFavoriteButton from '../Components/DrinkFavoriteButton';
-// import { handleFavorite, ifFavoriteFalse } from '../DrinkRecipesDetailsFunctions';
 
 export default function DrinkRecipeDetails({ match: { params: { id } }, history }) {
   const [message, setMessage] = useState(false);
   const [drinkRecipe, setDrinkRecipe] = useState([]);
   const [mealsRecommendation, setMealsRecommendation] = useState([]);
+  const [progress, setProgress] = useState(true);
 
   useEffect(() => {
     async function fetch() {
@@ -27,6 +27,17 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
     }
     fetch();
   }, []);
+
+  useEffect(() => {
+    const inProgressList = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+    if (inProgressList !== null) {
+      Object.entries((inProgressList).cocktails).forEach((item) => {
+        if (item[0] === id) {
+          setProgress(false);
+        }
+      });
+    }
+  }, [id, progress]);
 
   if (!drinkRecipe.length) {
     return <div>Loading...</div>;
@@ -60,7 +71,7 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
         type="button"
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
+        {progress ? 'Iniciar Receita' : 'Continuar Receita'}
       </button>
     </div>
   );
