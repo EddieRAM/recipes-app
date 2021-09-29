@@ -10,6 +10,7 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
   const [message, setMessage] = useState(false);
   const [mealRecipe, setMealRecipe] = useState([]);
   const [drinksRecommendation, setDrinksRecommendation] = useState([]);
+  const [progress, setProgress] = useState(true);
 
   useEffect(() => {
     async function fetch() {
@@ -26,6 +27,18 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
     }
     fetch();
   }, []);
+
+  useEffect(() => {
+    const inProgressList = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+    if (inProgressList !== null) {
+      Object.entries((inProgressList).meals).forEach((item) => {
+        if (item[0] === id) {
+          console.log(item);
+          setProgress(false);
+        }
+      });
+    }
+  }, [id, progress]);
 
   function video() {
     const link = mealRecipe[0].strYoutube;
@@ -67,7 +80,7 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
         type="button"
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
+        {progress ? 'Iniciar Receita' : 'Continuar Receita'}
       </button>
     </div>
   );

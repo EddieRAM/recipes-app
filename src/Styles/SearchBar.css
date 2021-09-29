@@ -1,4 +1,4 @@
-.searchbar form {
+.searchbar {
   align-items: center;
   display: flex;
   flex-flow: column wrap;
@@ -10,7 +10,7 @@
 
 .text-input {
   align-items: center;
-  background-color: #ffe5ad;
+  background-color: #c6e7f0;
   border: none;
   border-radius: 5px;
   font-weight: 600;

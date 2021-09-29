@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
@@ -6,62 +6,15 @@ import '../Styles/RecipeCards.css';
 import Context from '../Context/Context';
 
 function Drinks() {
-  const { apiDrink, setApiDrink, drinkStatus, setDrinkStatus } = useContext(Context);
-  const [reserve, setReserve] = useState([]);
-  const [apiCategoryDrink, setApiCategoryDrink] = useState([]);
-  const [verification, setNameVerification] = useState('');
-
-  useEffect(() => {
-    async function MyApiDrink() {
-      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const { drinks } = await results.json();
-      let newArray = [];
-      drinks.forEach((element, index) => {
-        const numberLimit = 12;
-        if (index < numberLimit) {
-          newArray = [...newArray, element];
-        }
-      });
-      setApiDrink(newArray);
-      setReserve(newArray);
-    }
-    if (drinkStatus === false) MyApiDrink();
-  }, [setApiDrink, drinkStatus]);
-
-  useEffect(() => {
-    async function MyApiCategoryDrink() {
-      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-      const { drinks } = await results.json();
-      let newArrayCat = [];
-      drinks.forEach((element, index) => {
-        const numberLimit = 5;
-        if (index < numberLimit) {
-          newArrayCat = [...newArrayCat, element.strCategory];
-        }
-      });
-      setApiCategoryDrink(newArrayCat);
-    }
-    MyApiCategoryDrink();
-  }, []);
-
-  useEffect(() => {
-    async function CallCategoryAPI() {
-      if (verification !== '') {
-        const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${verification}`;
-        const results = await fetch(url);
-        const { drinks } = await results.json();
-        let newS = [];
-        drinks.forEach((element, index) => {
-          const number = 12;
-          if (index < number) {
-            newS = [...newS, element];
-          }
-        });
-        setApiDrink(newS);
-      }
-    }
-    CallCategoryAPI();
-  }, [verification, setApiDrink]);
+  const {
+    apiDrink,
+    setApiDrink,
+    setDrinkStatus,
+    reserve,
+    apiCategoryDrink,
+    verification,
+    setNameVerification,
+  } = useContext(Context);
 
   function checkNameToReleaseApi(item) {
     if (item !== verification) {
