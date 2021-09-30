@@ -1,19 +1,25 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import '../Styles/RecipeCards.css';
+import { fetchDrinks } from '../Context/FetchFunctions';
 import Context from '../Context/Context';
+import '../Styles/RecipeCards.css';
 
 function Drinks() {
   const {
-    apiDrink,
+    /* apiDrink, */
     setApiDrink,
     setDrinkStatus,
     reserve,
     apiCategoryDrink,
     verification,
     setNameVerification,
+    setDrinks,
+    dataFilter,
+    drinks,
+    compare,
+    setCompare,
   } = useContext(Context);
 
   function checkNameToReleaseApi(item) {
@@ -23,6 +29,39 @@ function Drinks() {
       setApiDrink(reserve);
       setNameVerification('');
     }
+  }
+
+  useEffect(() => {
+    const fetchDrink = async () => {
+      const response = await fetchDrinks();
+      const MAX = 12;
+      const results = response.slice(0, MAX);
+      setDrinks(results);
+    };
+    fetchDrink();
+  }, [setDrinks]);
+
+  useEffect(() => {
+    const renderItens = () => {
+      if (dataFilter <= 0) {
+        return setCompare(drinks);
+      }
+      return setCompare(dataFilter);
+    };
+    renderItens();
+  }, [setCompare, compare, drinks, dataFilter]);
+
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (dataFilter === null) {
+    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    return fnAlert(alert, msg);
+  }
+
+  if (dataFilter.length === 1) {
+    return <Redirect to={ `/bebidas/${dataFilter[0].idDrink}` } />;
   }
 
   return (
@@ -55,18 +94,17 @@ function Drinks() {
         }
       </div>
       <div className="recipes-container">
-
         {
-          apiDrink.map((item, index) => (
+          compare.map((item, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
-              key={ item.id }
+              key={ index }
             >
               <Link to={ `/bebidas/${item.idDrink}` }>
                 <img
-                  src={ item.strDrinkThumb }
                   data-testid={ `${index}-card-img` }
+                  src={ item.strDrinkThumb }
                   alt={ item.strDrink }
                   width="300px"
                 />

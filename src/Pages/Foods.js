@@ -1,16 +1,23 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import { fetchFoods } from '../Context/FetchFunctions';
 import Context from '../Context/Context';
+import '../Styles/RecipeCards.css';
 
 function Foods() {
   const {
-    apiFood,
-    setApiFood,
+    /* apiFood, */
     setStatus,
-    reservation,
     ApiCategory,
+    setFoods,
+    dataFilter,
+    foods,
+    compare,
+    setCompare,
+    setApiFood,
+    reservation,
     setnameCategory,
     nameCategory,
   } = useContext(Context);
@@ -22,6 +29,39 @@ function Foods() {
       setnameCategory('');
       setApiFood(reservation);
     }
+  }
+
+  useEffect(() => {
+    const fetchFood = async () => {
+      const response = await fetchFoods();
+      const MAX = 12;
+      const results = response.slice(0, MAX);
+      setFoods(results);
+    };
+    fetchFood();
+  }, [setFoods]);
+
+  useEffect(() => {
+    const renderItens = () => {
+      if (dataFilter <= 0) {
+        return setCompare(foods);
+      }
+      return setCompare(dataFilter);
+    };
+    renderItens();
+  }, [setCompare, compare, foods, dataFilter]);
+
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (dataFilter === null) {
+    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    return fnAlert(alert, msg);
+  }
+
+  if (dataFilter.length === 1) {
+    return <Redirect to={ `/comidas/${dataFilter[0].idMeal}` } />;
   }
 
   return (
@@ -55,17 +95,18 @@ function Foods() {
       </div>
       <div className="recipes-container">
         {
-          apiFood.map((item, index) => (
+          compare.map((item, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
-              key={ item.id }
+              key={ index }
             >
               <Link to={ `/comidas/${item.idMeal}` }>
                 <img
-                  src={ item.strMealThumb }
                   data-testid={ `${index}-card-img` }
+                  src={ item.strMealThumb }
                   alt={ item.strMeal }
+                  width="300px"
                 />
                 <p
                   className="card-name"
