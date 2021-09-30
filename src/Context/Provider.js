@@ -24,17 +24,12 @@ function Provider({ children }) {
 
   useEffect(() => {
     async function MyApiFood() {
-      const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await results.json();
-      let newArray = [];
-      meals.forEach((element, index) => {
-        const numberLimit = 12;
-        if (index < numberLimit) {
-          newArray = [...newArray, element];
-        }
-      });
-      setApiFood(newArray);
-      setReservation(newArray);
+      const apiFetch = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const { meals } = await apiFetch.json();
+      const MAX = 12;
+      const results = meals.slice(0, MAX);
+      setApiFood(results);
+      setReservation(results);
     }
     if (status === false) MyApiFood();
   }, [status]);
@@ -68,6 +63,7 @@ function Provider({ children }) {
             newS = [...newS, element];
           }
         });
+        console.log(newS);
         setApiFood(newS);
       }
     }
@@ -147,6 +143,7 @@ function Provider({ children }) {
     foods,
     setFoods,
     dataFilter,
+    setDataFilter,
     compare,
     setCompare,
     apiFood,

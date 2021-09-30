@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../Styles/Header.css';
 import SearchBar from './SearchBar';
+import Context from '../Context/Context';
 
 function Header() {
   const [showSearch, setShowSearch] = useState(false);
   const history = useHistory();
+  const { setDataFilter } = useContext(Context);
+
+  function alterar() {
+    if (showSearch === false) {
+      setShowSearch(true);
+    } else {
+      setShowSearch(false);
+      setDataFilter([]);
+    }
+  }
 
   return (
     <div>
@@ -27,12 +38,12 @@ function Header() {
           data-testid="search-top-btn"
           type="button"
           src={ searchIcon }
-          onClick={ () => setShowSearch(!showSearch) }
+          onClick={ () => { alterar(); } }
         >
           <img src={ searchIcon } alt="Mostrar pesquisa" />
         </button>
       </div>
-      { showSearch ? <SearchBar /> : null }
+      { showSearch === true ? <SearchBar /> : null }
     </div>
   );
 }

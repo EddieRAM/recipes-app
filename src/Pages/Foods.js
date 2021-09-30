@@ -2,18 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import { fetchFoods } from '../Context/FetchFunctions';
 import Context from '../Context/Context';
 import '../Styles/RecipeCards.css';
 
 function Foods() {
   const {
-    /* apiFood, */
+    apiFood,
     setStatus,
     ApiCategory,
-    setFoods,
     dataFilter,
-    foods,
     compare,
     setCompare,
     setApiFood,
@@ -32,24 +29,15 @@ function Foods() {
   }
 
   useEffect(() => {
-    const fetchFood = async () => {
-      const response = await fetchFoods();
-      const MAX = 12;
-      const results = response.slice(0, MAX);
-      setFoods(results);
-    };
-    fetchFood();
-  }, [setFoods]);
-
-  useEffect(() => {
     const renderItens = () => {
-      if (dataFilter <= 0) {
-        return setCompare(foods);
+      if (dataFilter.length === 0) {
+        setCompare(apiFood);
+      } else {
+        setCompare(dataFilter);
       }
-      return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, compare, foods, dataFilter]);
+  }, [setCompare, compare, apiFood, dataFilter]);
 
   const fnAlert = (func, message) => {
     func(message);

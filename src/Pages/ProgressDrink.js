@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import DrinkFavoriteButton from '../Components/DrinkFavoriteButton';
+import Share from '../Components/Share';
 
 function ProgressDrink({ match: { params: { id } }, history }) {
   const [apiId, setApiID] = useState({});
@@ -129,8 +131,8 @@ function ProgressDrink({ match: { params: { id } }, history }) {
     <div>
       <img src={ apiId.strDrinkThumb } alt={ apiId.idDrink } data-testid="recipe-photo" />
       <h5 data-testid="recipe-title">{apiId.strDrink}</h5>
-      <button type="submit" data-testid="share-btn">compartilhar</button>
-      <button type="submit" data-testid="favorite-btn">Favorito</button>
+      <Share />
+      <DrinkFavoriteButton drinkRecipe={ apiId } id={ id } />
       <p data-testid="recipe-category">{apiId.strCategory}</p>
       <p>{apiId.strAlcoholic}</p>
       <div>
