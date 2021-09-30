@@ -1,4 +1,4 @@
-/* import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Glide from 'react-glidejs';
 import 'react-glidejs/dist/index.css';
@@ -50,4 +50,3 @@ export default function MealsCarousel({ recommendation }) {
 MealsCarousel.propTypes = {
   recommendation: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
- */
