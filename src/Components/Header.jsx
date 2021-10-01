@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -7,9 +7,8 @@ import SearchBar from './SearchBar';
 import Context from '../Context/Context';
 
 function Header() {
-  const [showSearch, setShowSearch] = useState(false);
   const history = useHistory();
-  const { setDataFilter } = useContext(Context);
+  const { setDataFilter, showSearch, setShowSearch } = useContext(Context);
 
   function alterar() {
     if (showSearch === false) {
@@ -32,6 +31,7 @@ function Header() {
           <img src={ profileIcon } alt="Perfil" />
         </button>
         <span data-testid="page-title">
+          Header
           Perfil / Busca
         </span>
         <button
@@ -47,5 +47,9 @@ function Header() {
     </div>
   );
 }
+
+// Header.propTypes = {
+//   toggleSearchBar: PropTypes.object,
+// }.isRequired;
 
 export default Header;

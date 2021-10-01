@@ -17,6 +17,7 @@ function Drinks() {
     dataFilter,
     compare,
     setCompare,
+    showSearch,
   } = useContext(Context);
 
   function checkNameToReleaseApi(item) {
@@ -53,13 +54,9 @@ function Drinks() {
 
   const numberMax = 12;
 
-  return (
-    <div>
-      <header>
-        <h1 data-testid="page-title">Bebidas</h1>
-        <Header />
-      </header>
-      <div className="recipe-categories">
+  function renderizer() {
+    return (
+      <div>
         <button
           onClick={ () => {
             setApiDrink(reserve); setNameVerification(''); setDrinkStatus(false);
@@ -81,6 +78,18 @@ function Drinks() {
             </button>
           ))
         }
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <header>
+        <h1 data-testid="page-title">Bebidas</h1>
+        <Header />
+      </header>
+      <div className="recipe-categories">
+        { showSearch === true ? null : renderizer() }
       </div>
       <div className="recipes-container">
         {

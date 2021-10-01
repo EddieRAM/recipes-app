@@ -17,6 +17,7 @@ function Foods() {
     reservation,
     setnameCategory,
     nameCategory,
+    showSearch,
   } = useContext(Context);
 
   function verificationNameCategory(item) {
@@ -52,13 +53,9 @@ function Foods() {
     return <Redirect to={ `/comidas/${dataFilter[0].idMeal}` } />;
   }
 
-  return (
-    <div>
-      <header>
-        <h1 data-testid="page-title">Comidas</h1>
-        <Header />
-      </header>
-      <div className="recipe-categories">
+  function renderizer() {
+    return (
+      <div>
         <button
           onClick={ () => {
             setApiFood(reservation); setnameCategory(''); setStatus(false);
@@ -80,6 +77,18 @@ function Foods() {
             </button>
           ))
         }
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <header>
+        <h1 data-testid="page-title">Comidas</h1>
+        <Header />
+      </header>
+      <div className="recipe-categories">
+        { showSearch === true ? null : renderizer() }
       </div>
       <div className="recipes-container">
         {
