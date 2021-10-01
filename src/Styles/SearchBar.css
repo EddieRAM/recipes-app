@@ -1,0 +1,48 @@
+.searchbar {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 15px 10px;
+  width: 80%;
+}
+
+.text-input {
+  align-items: center;
+  background-color: #c6e7f0;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  height: 35px;
+  outline: none;
+  text-align: center;
+  width: 70vw;
+}
+
+.text-input::placeholder {
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.searchbar-btn {
+  color: white;
+  font-weight: 900;
+  width: 150px;
+}
+
+.searchbar-btn:hover {
+  background-color: rgb(40, 201, 166);
+  font-weight: 900;
+}
+
+.radio-btns {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 2px;
+  width: 45%;
+}
+

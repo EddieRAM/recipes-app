@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import * as ReactBootstrap from 'react-bootstrap';
 
 import Context from '../Context/Context';
+
+import '../Styles/SearchBar.css';
 
 function SearchBar() {
   const { radioBtn, setSearch, setRadioBtn, handleClick, usrQuery } = useContext(Context);
@@ -16,16 +19,20 @@ function SearchBar() {
     }
   };
   return (
-    <div>
+    <form
+      onSubmit={ (e) => e.preventDefault() }
+      className="searchbar form"
+    >
       <label htmlFor="search-input">
         <input
+          className="text-input"
           data-testid="search-input"
           id="search-input"
           type="text"
           onChange={ ({ target }) => searchFilter(target) }
         />
       </label>
-      <form>
+      <div className="radio-btns">
         <label htmlFor="name">
           <input
             id="name-radio"
@@ -56,16 +63,17 @@ function SearchBar() {
           />
           Primeira Letra
         </label>
-        <button
+        <ReactBootstrap.Button
+          className="searchbar-btn"
           data-testid="exec-search-btn"
           type="button"
           onClick={ () => { handleClick(pathname); } }
         >
           Pesquisar
-        </button>
+        </ReactBootstrap.Button>
 
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 

@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import Context from '../Context/Context';
+import '../Styles/RecipeCards.css';
 
 function Foods() {
   const {
     apiFood,
-    setApiFood,
     setStatus,
-    reservation,
     ApiCategory,
+    dataFilter,
+    compare,
+    setCompare,
+    setApiFood,
+    reservation,
     setnameCategory,
     nameCategory,
   } = useContext(Context);
@@ -22,6 +26,30 @@ function Foods() {
       setnameCategory('');
       setApiFood(reservation);
     }
+  }
+
+  useEffect(() => {
+    const renderItens = () => {
+      if (dataFilter.length === 0) {
+        setCompare(apiFood);
+      } else {
+        setCompare(dataFilter);
+      }
+    };
+    renderItens();
+  }, [setCompare, compare, apiFood, dataFilter]);
+
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (dataFilter === null) {
+    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    return fnAlert(alert, msg);
+  }
+
+  if (dataFilter.length === 1) {
+    return <Redirect to={ `/comidas/${dataFilter[0].idMeal}` } />;
   }
 
   return (
@@ -55,17 +83,18 @@ function Foods() {
       </div>
       <div className="recipes-container">
         {
-          apiFood.map((item, index) => (
+          compare.map((item, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
-              key={ item.id }
+              key={ index }
             >
               <Link to={ `/comidas/${item.idMeal}` }>
                 <img
-                  src={ item.strMealThumb }
                   data-testid={ `${index}-card-img` }
+                  src={ item.strMealThumb }
                   alt={ item.strMeal }
+                  width="300px"
                 />
                 <p
                   className="card-name"

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import '../Styles/RecipeCards.css';
 import Context from '../Context/Context';
+import '../Styles/RecipeCards.css';
 
 function Drinks() {
   const {
@@ -14,6 +14,9 @@ function Drinks() {
     apiCategoryDrink,
     verification,
     setNameVerification,
+    dataFilter,
+    compare,
+    setCompare,
   } = useContext(Context);
 
   function checkNameToReleaseApi(item) {
@@ -24,6 +27,31 @@ function Drinks() {
       setNameVerification('');
     }
   }
+
+  useEffect(() => {
+    const renderItens = () => {
+      if (dataFilter <= 0) {
+        return setCompare(apiDrink);
+      }
+      return setCompare(dataFilter);
+    };
+    renderItens();
+  }, [setCompare, compare, apiDrink, dataFilter]);
+
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (dataFilter === null) {
+    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    return fnAlert(alert, msg);
+  }
+
+  if (dataFilter.length === 1) {
+    return <Redirect to={ `/bebidas/${dataFilter[0].idDrink}` } />;
+  }
+
+  const numberMax = 12;
 
   return (
     <div>
@@ -55,18 +83,17 @@ function Drinks() {
         }
       </div>
       <div className="recipes-container">
-
         {
-          apiDrink.map((item, index) => (
+          compare.map((item, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
-              key={ item.id }
+              key={ index }
             >
               <Link to={ `/bebidas/${item.idDrink}` }>
                 <img
-                  src={ item.strDrinkThumb }
                   data-testid={ `${index}-card-img` }
+                  src={ item.strDrinkThumb }
                   alt={ item.strDrink }
                   width="300px"
                 />
@@ -77,7 +104,7 @@ function Drinks() {
                   {item.strDrink}
                 </p>
               </Link>
-            </div>))
+            </div>)).splice(0, numberMax)
         }
         <Footer />
       </div>
