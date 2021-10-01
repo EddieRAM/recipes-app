@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../Components/Footer';
-import ProfileAvatar from '../Components/ProfileAvatar';
+import Header from '../Components/Header';
 
 export default function ExploreFood({ history }) {
   return (
     <div>
-      <h1 data-testid="page-title">Explorar Comidas</h1>
-      <ProfileAvatar />
+      <Header />
       <button
         type="button"
         data-testid="explore-by-ingredient"

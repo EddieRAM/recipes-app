@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as ReactBootstrap from 'react-bootstrap';
-
 import Context from '../Context/Context';
-
 import '../Styles/SearchBar.css';
 
 function SearchBar() {
@@ -18,6 +16,7 @@ function SearchBar() {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
   };
+
   return (
     <form
       onSubmit={ (e) => e.preventDefault() }

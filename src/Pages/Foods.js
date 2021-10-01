@@ -84,7 +84,6 @@ function Foods() {
   return (
     <div>
       <header>
-        <h1 data-testid="page-title">Comidas</h1>
         <Header />
       </header>
       <div className="recipe-categories">
