@@ -15,6 +15,7 @@ function ProgressFood({ match: { params: { id } }, history }) {
     cocktails: {},
     meals: {},
   });
+  const [storageRecipes, setStorageRecipes] = useState([]);
 
   useEffect(() => {
     async function ApiId() {
@@ -40,12 +41,16 @@ function ProgressFood({ match: { params: { id } }, history }) {
 
   useEffect(() => {
     const itemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const doneRecioes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (itemLocalStorage !== null) {
       setLocalStorage(itemLocalStorage);
       const { meals } = itemLocalStorage;
       if (meals !== {} && meals[id]) {
         setArrayStorage(meals[id]);
       }
+    }
+    if (doneRecioes !== null) {
+      setStorageRecipes(doneRecioes);
     }
   }, [id]);
 
@@ -63,7 +68,7 @@ function ProgressFood({ match: { params: { id } }, history }) {
   useEffect(() => {
     const save = localStorageS;
     localStorage.setItem('inProgressRecipes', JSON.stringify(save));
-  }, [localStorageS]);
+  }, [localStorageS, storageRecipes]);
 
   useEffect(() => {
     let ingTrue = 0;
@@ -126,6 +131,26 @@ function ProgressFood({ match: { params: { id } }, history }) {
     });
   }
 
+  function handlerClick() {
+    const doneRecipe = {
+      id: apiId.idMeal,
+      type: 'comida',
+      area: '',
+      category: apiId.strCategory,
+      alcoholicOrNot: '',
+      name: apiId.strMeal,
+      image: apiId.strMealThumb,
+      doneDate: new Date(),
+      tags: [],
+    };
+    const local = [...storageRecipes, doneRecipe];
+    const local2 = localStorageS;
+    local2.meals[id] = [];
+    localStorage.setItem('doneRecipes', JSON.stringify(local));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(local2));
+    history.push('/receitas-feitas');
+  }
+
   return (
     <div>
       <img src={ apiId.strMealThumb } alt={ apiId.strTags } data-testid="recipe-photo" />
@@ -164,7 +189,7 @@ function ProgressFood({ match: { params: { id } }, history }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }
-        onClick={ () => { history.push('/receitas-feitas'); } }
+        onClick={ () => { handlerClick(); } }
       >
         Finalizar Receita
       </button>
