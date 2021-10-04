@@ -1,4 +1,28 @@
 .footer {
+  align-content: space-around;
+  background-color: gray;
   bottom: 0;
+  display: flex;
+  flex-flow: column wrap;
+  font-weight: 600;
+  height: 3rem;
+  padding: 10px;
   position: fixed;
+  width: 100vw;
+}
+
+.footer-button {
+  align-content: center;
+  background-color: gray;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 30px;
+  outline: none;
+  transition: 0.1s linear;
+}
+
+.footer-button:hover {
+  transform: scale(1.05);
 }
