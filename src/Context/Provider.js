@@ -21,6 +21,7 @@ function Provider({ children }) {
   const [reserve, setReserve] = useState([]);
   const [apiCategoryDrink, setApiCategoryDrink] = useState([]);
   const [verification, setNameVerification] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     async function MyApiFood() {
@@ -162,6 +163,8 @@ function Provider({ children }) {
     apiCategoryDrink,
     setNameVerification,
     verification,
+    showSearch,
+    setShowSearch,
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../Components/Footer';
-import ProfileAvatar from '../Components/ProfileAvatar';
+import Header from '../Components/Header';
 import Context from '../Context/Context';
 
 function ExploreFoodsByIngredients() {
@@ -40,8 +40,7 @@ function ExploreFoodsByIngredients() {
 
   return (
     <div>
-      <h1 data-testid="page-title">Explorar Ingredientes</h1>
-      <ProfileAvatar />
+      <Header />
       <main>
         {
           ingredients.map((item, index) => (

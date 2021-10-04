@@ -14,15 +14,20 @@ function ProgressDrink({ match: { params: { id } }, history }) {
     cocktails: {},
     meals: {},
   });
+  const [storageRecipes, setStorageRecipes] = useState([]);
 
   useEffect(() => {
     const itemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const doneRecioes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (itemLocalStorage !== null) {
       setLocalStorage(itemLocalStorage);
       const { cocktails } = itemLocalStorage;
       if (cocktails !== {} && cocktails[id]) {
         setArrayStorageIngr(cocktails[id]);
       }
+    }
+    if (doneRecioes !== null) {
+      setStorageRecipes(doneRecioes);
     }
   }, [id]);
 
@@ -127,6 +132,26 @@ function ProgressDrink({ match: { params: { id } }, history }) {
     });
   }
 
+  function handlerClick() {
+    const doneRecipe = {
+      id: apiId.idDrink,
+      type: 'bebida',
+      area: '',
+      category: apiId.strCategory,
+      alcoholicOrNot: apiId.strAlcoholic,
+      name: apiId.strDrink,
+      image: apiId.strMealThumb,
+      doneDate: new Date(),
+      tags: [],
+    };
+    const local = [...storageRecipes, doneRecipe];
+    const local2 = localStorageS;
+    local2.cocktails[id] = [];
+    localStorage.setItem('doneRecipes', JSON.stringify(local));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(local2));
+    history.push('/receitas-feitas');
+  }
+
   return (
     <div>
       <img src={ apiId.strDrinkThumb } alt={ apiId.idDrink } data-testid="recipe-photo" />
@@ -165,7 +190,7 @@ function ProgressDrink({ match: { params: { id } }, history }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }
-        onClick={ () => { history.push('/receitas-feitas'); } }
+        onClick={ () => { handlerClick(); } }
       >
         Finalizar Receita
       </button>

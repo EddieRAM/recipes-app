@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ProfileAvatar from '../Components/ProfileAvatar';
+import Header from '../Components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function MadeRecipes() {
@@ -164,8 +164,7 @@ export default function MadeRecipes() {
 
   return (
     <div>
-      <h1 data-testid="page-title">Receitas Feitas</h1>
-      <ProfileAvatar />
+      <Header />
       { renderButtons() }
       { showDoneRecipes() }
     </div>

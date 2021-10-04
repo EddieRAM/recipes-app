@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../Components/Footer';
-import ProfileAvatar from '../Components/ProfileAvatar';
+import Header from '../Components/Header';
 
 export default function Explore({ history }) {
   return (
 
     <div>
       <div>
-        <h1 data-testid="page-title">Explorar</h1>
-        <ProfileAvatar />
+        <Header />
       </div>
       <button
         type="button"

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ProfileAvatar from '../Components/ProfileAvatar';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from '../Components/Header';
 
 function FavoriteRecipes({ history }) {
   const [favorite, setFavorite] = useState([]);
@@ -23,8 +23,7 @@ function FavoriteRecipes({ history }) {
   return (
     <div>
       <header>
-        <h1 data-testid="page-title">Receitas Favoritas</h1>
-        <ProfileAvatar />
+        <Header />
       </header>
       <div>
         <button
