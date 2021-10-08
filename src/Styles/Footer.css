@@ -1,6 +1,6 @@
 .footer {
   align-content: space-around;
-  background-color: rgb(41, 14, 6);
+  background: var(--input-linear2);
   bottom: 0;
   display: flex;
   flex-flow: column wrap;
@@ -11,17 +11,19 @@
   width: 100vw;
 }
 
+.footer :first-child:hover {
+  animation: shake 0.3s infinite ease;
+}
+
 .footer-button {
   align-content: center;
   border: none;
   border-radius: 5px;
+  color: red;
   display: flex;
+  filter: invert();
   flex-flow: row wrap;
   height: 30px;
   outline: none;
   transition: 0.1s linear;
-}
-
-.footer-button:hover {
-  transform: scale(1.05);
 }

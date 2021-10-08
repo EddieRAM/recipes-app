@@ -1,9 +1,11 @@
 .header {
   align-content: space-around;
-  background-color: orange;
+  background: var(--input-linear);
   display: flex;
   flex-flow: column wrap;
-  font-weight: 600;
+  font-family: Nunito , sans-serif;
+  font-size: 32px;
+  font-weight: 900;
   height: 3rem;
   padding: 10px;
   width: 100vw;
@@ -15,7 +17,7 @@
 
 .header button {
   align-content: center;
-  background-color: orange;
+  background: none;
   border: none;
   border-radius: 5px;
   display: flex;

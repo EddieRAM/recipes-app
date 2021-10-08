@@ -1,21 +1,17 @@
-body {
-  background: url('./images/table.jpg');
-}
-
-
 .login {
   align-content: space-around;
   align-items: center;
   background: url('images/Appetizer.png') no-repeat;
   background-attachment: fixed;
   background-position-x: center;
-  background-position-y: inherit;
-  background-size: 50%;
+  background-position-y: top;
+  background-size: 25%;
   display: flex;
-  flex-flow: column wrap;
-  height: 100vh;
+  flex-flow: column-reverse wrap;
+  height: 85vh;
   margin: auto;
-  margin-top: 15%;
+  margin-top: 0%;
+  padding: auto;
   width: 100%;
 }
 
@@ -132,4 +128,12 @@ body {
   color: var(--gray);
   font-size: 12px;
   text-decoration: none;
+}
+
+@media screen  and ( max-width : 360px ) {
+
+  .login {
+    background-size: 60%;
+    height: 90vh;
+  }
 }

@@ -78,6 +78,7 @@ function Header() {
         >
           <img src={ profileIcon } alt="Perfil" />
         </button>
+        <div className="logo" />
         <span data-testid="page-title">
           { name() }
         </span>

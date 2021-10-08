@@ -2,11 +2,13 @@
 
 :root {
 
-  --input-linear: linear-gradient(120deg, orange, rgb(255, 72, 0));
+  --input-linear: linear-gradient(120deg, #fb0, #f65314);
 
-  --button-linear: linear-gradient(120deg, rgb(255, 230, 0), rgb(255, 72, 0), #ca2f68);
+  --input-linear2: linear-gradient(120deg, #9625035d, #3f0f017a);
 
-  --button-disabled: rgb(179, 179, 179);
+  --button-linear: linear-gradient(120deg, #fb0, #f65314, #ad0d48);
+
+  --button-disabled: #acacac;
 
   --button-success: rgb(18, 151, 107);
 
@@ -24,6 +26,11 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  background: url('./Styles/images/table.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .meals {

@@ -5,10 +5,8 @@ import profileIcon from '../images/profileIcon.svg';
 
 import '../Styles/HeaderElements.css';
 
-function HeaderElements(props) {
+function HeaderElements() {
   const history = useHistory();
-
-  const { title } = props;
 
   return (
     <div className="header">
@@ -22,7 +20,7 @@ function HeaderElements(props) {
         <img src={ profileIcon } alt="Perfil" />
       </button>
       <span className="header-span" data-testid="page-title">
-        {title}
+        Header
       </span>
     </div>
   );
