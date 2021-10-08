@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;900&display=swap') ;
+
+:root {
+
+  --input-linear: linear-gradient(120deg, orange, rgb(255, 72, 0));
+
+  --button-linear: linear-gradient(120deg, rgb(255, 230, 0), rgb(255, 72, 0), #ca2f68);
+
+  --button-disabled: rgb(179, 179, 179);
+
+  --button-success: rgb(18, 151, 107);
+
+  --white: white;
+
+  --black: black;
+
+  --gray: gray;
+
+  --border-radius: 10px;
+
+  --border-height: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -13,69 +41,4 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-}
-
-.login-form {
-  display: flex;
-  flex-flow: column wrap;
-  margin: 1.3em;
-  margin-top: 5em;
-  width: 75%;
-}
-
-.login-button {
-  align-self: center;
-  width: 100%;
-}
-
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
 }

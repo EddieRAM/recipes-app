@@ -9,6 +9,10 @@
   width: 100vw;
 }
 
+.header :first-child:hover {
+  animation: shake 0.3s infinite ease;
+}
+
 .header button {
   align-content: center;
   background-color: orange;

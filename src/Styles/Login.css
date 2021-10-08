@@ -1,0 +1,135 @@
+body {
+  background: url('./images/table.jpg');
+}
+
+
+.login {
+  align-content: space-around;
+  align-items: center;
+  background: url('images/Appetizer.png') no-repeat;
+  background-attachment: fixed;
+  background-position-x: center;
+  background-position-y: inherit;
+  background-size: 50%;
+  display: flex;
+  flex-flow: column wrap;
+  height: 100vh;
+  margin: auto;
+  margin-top: 15%;
+  width: 100%;
+}
+
+.login :first-child {
+  align-content: space-around;
+  align-items: center;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.login-container {
+  align-items: center;
+  background: inherit;
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 0 2000px rgba(216, 216, 216, 0.774);
+  box-sizing: border-box;
+  content: '';
+  display: flex;
+  flex-flow: column wrap;
+  margin: auto;
+  margin-top: 4em;
+  min-height: 400px;
+  padding: 32px;
+  position: absolute;
+  width: 300px;
+}
+
+.login-container:before {
+  background: inherit;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.959);
+  filter: blur(10px);
+}
+
+.login-title {
+  color: white;
+  margin-bottom: 32px;
+}
+
+.login-form {
+  align-items: center;
+  background-color: blur(1.5) white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-input {
+  border: unset;
+  box-sizing: border-box;
+  height: 48px;
+  outline: none;
+  padding-left: 8px;
+  position: relative;
+  width: 100%;
+}
+
+.login-input-border {
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+  height: var(--border-height);
+  transition: 0.3s ease-in-out;
+  width: 100%;
+}
+
+.login-input-border:after {
+  background: var(--input-linear);
+  border-radius: var(--border-radius);
+  content: '';
+  display: block;
+  height: var(--border-height);
+  transition: 0.3s ease-in-out;
+  width: 0;
+}
+
+.login-input:focus + .login-input-border:after {
+  width: 100%;
+}
+
+
+.login-submit {
+  background: var(--button-linear);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  margin-bottom: 32px;
+  outline: none;
+  padding-left: 8px;
+  position: relative;
+  transition: 0.5s ease;
+  width: 100%;
+}
+
+.login-submit:disabled {
+  background: var(--button-disabled);
+  cursor: not-allowed;
+}
+
+.login-submit:hover {
+  background-position: right;
+}
+
+.login-submit.success {
+  background: var(--button-success);
+}
+
+.login-reset {
+  color: var(--gray);
+  font-size: 12px;
+  text-decoration: none;
+}

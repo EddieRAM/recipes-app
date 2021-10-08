@@ -1,6 +1,6 @@
 .footer {
   align-content: space-around;
-  background-color: gray;
+  background-color: rgb(41, 14, 6);
   bottom: 0;
   display: flex;
   flex-flow: column wrap;
@@ -13,7 +13,6 @@
 
 .footer-button {
   align-content: center;
-  background-color: gray;
   border: none;
   border-radius: 5px;
   display: flex;
