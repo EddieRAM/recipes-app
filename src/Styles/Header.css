@@ -1,13 +1,15 @@
 .header {
   align-content: space-around;
-  background: var(--input-linear);
+  background: var(--header);
+  color: white;
   display: flex;
   flex-flow: column wrap;
   font-family: Nunito , sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 900;
   height: 3rem;
   padding: 10px;
+  text-align: center;
   width: 100vw;
 }
 
@@ -21,6 +23,7 @@
   border: none;
   border-radius: 5px;
   display: flex;
+  filter: invert();
   flex-flow: row wrap;
   height: 25px;
   outline: none;
@@ -29,5 +32,5 @@
 }
 
 .header button:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); 
 }

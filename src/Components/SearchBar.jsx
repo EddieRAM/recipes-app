@@ -29,7 +29,9 @@ function SearchBar() {
           id="search-input"
           type="text"
           onChange={ ({ target }) => searchFilter(target) }
+          placeholder="Busque uma receita"
         />
+        <span className="text-input-border" />
       </label>
       <div className="radio-btns">
         <label htmlFor="name">

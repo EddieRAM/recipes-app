@@ -4,7 +4,9 @@
 
   --input-linear: linear-gradient(120deg, #fb0, #f65314);
 
-  --input-linear2: linear-gradient(120deg, #9625035d, #3f0f017a);
+  --input-linear2: linear-gradient(120deg, rgba(94, 13, 58, 0.281), #f6541448);
+
+  --header: linear-gradient(120deg, rgba(235, 176, 14, 0.315), #f654144b);
 
   --button-linear: linear-gradient(120deg, #fb0, #f65314, #ad0d48);
 
@@ -29,7 +31,7 @@
 }
 
 body {
-  background: url('./Styles/images/table.jpg') no-repeat center center fixed;
+  background: url('./Styles/images/full-table.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 

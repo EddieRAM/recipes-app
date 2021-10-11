@@ -1,48 +1,90 @@
 .searchbar {
+  align-content: space-evenly;
   align-items: center;
   display: flex;
   flex-flow: column wrap;
   margin: 0 auto;
   margin-top: 5px;
-  padding: 15px 10px;
-  width: 80%;
+  padding: 15px 10em;
+  text-align: justify;
+  width: 60%;
 }
 
 .text-input {
-  align-items: center;
-  background-color: #c6e7f0;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  height: 35px;
+  border: unset;
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  height: 48px;
   outline: none;
-  text-align: center;
-  width: 70vw;
+  padding-left: 8px;
+  position: relative;
+  width: 100%;
 }
 
-.text-input::placeholder {
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  text-align: center;
+.text-input-border {
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+  height: var(--border-height);
+  transition: 0.3s ease-in-out;
+  width: 100%;
 }
+
+.text-input-border:after {
+  background: var(--input-linear);
+  border-radius: var(--border-radius);
+  content: '';
+  display: block;
+  height: var(--border-height);
+  transition: 0.3s ease-in-out;
+  width: 0;
+}
+
+.text-input:focus + .text-input-border:after {
+  width: 100%;
+}
+
 
 .searchbar-btn {
-  color: white;
-  font-weight: 900;
-  width: 150px;
+  background: var(--button-linear);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  margin-top: 10px;
+  outline: none;
+  position: relative;
+  transition: 0.5s ease;
+  width: 10em;
 }
 
 .searchbar-btn:hover {
-  background-color: rgb(40, 201, 166);
-  font-weight: 900;
+  background-position: right;
 }
 
 .radio-btns {
+  color: white;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  padding: 2px;
   width: 45%;
+}
+
+@media screen  and ( max-width : 360px ) {
+
+  .searchbar {
+    align-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 15px 0;
+    text-align: center;
+    width: 50em;
+  }
 }
 
