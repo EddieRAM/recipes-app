@@ -21,30 +21,32 @@ export default function Profile({ history }) {
       <Header />
       <main className="profile-container">
         <p data-testid="profile-email">{ email }</p>
-        <button
-          className="profile-button"
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => history.push('/receitas-feitas') }
-        >
-          Receitas Feitas
-        </button>
-        <button
-          className="profile-button"
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => history.push('/receitas-favoritas') }
-        >
-          Receitas Favoritas
-        </button>
-        <button
-          className="profile-button"
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ handleClick }
-        >
-          Sair
-        </button>
+        <div className="profile-buttons">
+          <button
+            className="profile-button"
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ () => history.push('/receitas-feitas') }
+          >
+            Receitas Feitas
+          </button>
+          <button
+            className="profile-button"
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ () => history.push('/receitas-favoritas') }
+          >
+            Receitas Favoritas
+          </button>
+          <button
+            className="profile-button"
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ handleClick }
+          >
+            Sair
+          </button>
+        </div>
       </main>
       <div>
         <Footer />

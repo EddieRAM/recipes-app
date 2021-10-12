@@ -10,6 +10,8 @@
 
   --button-linear: linear-gradient(120deg, #fb0, #f65314, #ad0d48);
 
+  --button-linear2: linear-gradient(120deg, rgb(8, 90, 184), #8df614);
+
   --button-disabled: #acacac;
 
   --button-success: rgb(18, 151, 107);

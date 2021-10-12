@@ -57,21 +57,35 @@ export default function MealRecipeDetails({ match: { params: { id } }, history }
   }
 
   return (
-    <div>
+    <div className="details-container">
       <img
+        className="details-img"
         src={ `${mealRecipe[0].strMealThumb}` }
         data-testid="recipe-photo"
         alt="recipe"
       />
       <h1 data-testid="recipe-title">{mealRecipe[0].strMeal}</h1>
-      <button onClick={ copyLink } type="button" data-testid="share-btn">Share</button>
+      <button
+        className="share-btn"
+        onClick={ copyLink }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+      </button>
       <p>{message ? 'Link copiado!' : ''}</p>
       <MealFavoriteButton mealRecipe={ mealRecipe[0] } id={ id } />
       <h3 data-testid="recipe-category">{mealRecipe[0].strCategory}</h3>
       <IngredientsDetails ingredients={ mealRecipe[0] } />
-      <p data-testid="instructions">{mealRecipe[0].strInstructions}</p>
+      <p
+        className="instructions"
+        data-testid="instructions"
+      >
+        {mealRecipe[0].strInstructions}
+
+      </p>
       <embed src={ `https://www.youtube.com/embed/${video()}` } data-testid="video" width="425" height="344" />
-      <div>
+      <div className="carousel">
         <DrinksCarousel recommendation={ drinksRecommendation } />
       </div>
       <button

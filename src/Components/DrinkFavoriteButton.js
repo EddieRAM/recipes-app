@@ -57,7 +57,7 @@ export default function DrinkFavoriteButton({ drinkRecipe, id }) {
   }
 
   return (
-    <div>
+    <div className="favorite-btn">
       <button onClick={ handleFavorite } type="button">
         <img
           src={ favorite ? blackHeartIcon : whiteHeartIcon }

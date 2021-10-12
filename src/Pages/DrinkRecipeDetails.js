@@ -50,20 +50,36 @@ export default function DrinkRecipeDetails({ match: { params: { id } }, history 
   }
 
   return (
-    <div>
+    <div className="details-container">
       <img
+        className="details-img"
         src={ `${drinkRecipe[0].strDrinkThumb}` }
         data-testid="recipe-photo"
         alt="recipe"
       />
       <h1 data-testid="recipe-title">{drinkRecipe[0].strDrink}</h1>
-      <button onClick={ copyLink } type="button" data-testid="share-btn">Share</button>
+      <button
+        className="share-btn"
+        onClick={ copyLink }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+      </button>
       <p>{message ? 'Link copiado!' : ''}</p>
       <DrinkFavoriteButton drinkRecipe={ drinkRecipe[0] } id={ id } />
       <h3 data-testid="recipe-category">{drinkRecipe[0].strAlcoholic}</h3>
       <IngredientsDetails ingredients={ drinkRecipe[0] } />
-      <p data-testid="instructions">{drinkRecipe[0].strInstructions}</p>
-      <MealsCarousel recommendation={ mealsRecommendation } />
+      <p
+        className="instructions"
+        data-testid="instructions"
+      >
+        {drinkRecipe[0].strInstructions}
+
+      </p>
+      <div className="carousel">
+        <MealsCarousel recommendation={ mealsRecommendation } />
+      </div>
       <div />
       <button
         onClick={ () => history.push(`/bebidas/${id}/in-progress`) }

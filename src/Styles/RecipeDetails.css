@@ -1,4 +1,145 @@
-.start-btn {
+/* .start-btn {
   bottom: 0;
   position: fixed;
+}
+ */
+
+.start-btn {
+  background: var(--button-linear);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  bottom: 0;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  margin: 10px;
+  margin-bottom: 32px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  position: fixed;
+  text-align: center;
+  transition: 0.5s ease;
+  width: 10em;
+}
+
+.share-btn {
+  background: var(--button-linear2);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  bottom: 0;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  margin: 10px;
+  margin-bottom: 32px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+  transition: 0.5s ease;
+  width: 10em;
+}
+
+.start-btn:hover {
+  background-position: right;
+}
+
+.share-btn:hover {
+  background-position: right;
+}
+
+.details-img {
+  border-radius: 10px;
+  margin: 25px;
+  max-height: 235px;
+  max-width: 200px;
+  min-height: 100px;
+  min-width: 100px;
+
+}
+
+.details-container {
+  align-items: center;
+  background-color: blur(1.5) white;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 , 5em;
+  width: 100%;
+}
+
+.favorite-btn button {
+  align-content: center;
+  background: var(--button-linear2);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  filter: invert();
+  flex-flow: row wrap;
+  height: 40px;
+  margin-bottom: 40px;
+  outline: none;
+  padding: 10px;
+  transition: 0.1s linear;
+}
+
+h1 {
+  margin-bottom: 50px;
+}
+
+h3 {
+  margin-bottom: 30px;
+}
+
+.instructions {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 20px 200px;
+}
+
+.favorite-btn button:hover {
+  background-position: right;
+  transform: scale(1.2);
+}
+
+.carousel {
+  margin-top: 10vh;
+  max-height: 80%;
+  max-width: 80%;
+  min-height: 80%;
+  min-width: 50%;
+}
+
+@media screen  and ( max-width : 360px ) {
+
+  .carousel {
+    background-size: 60%;
+    height: 100vh;
+    margin-top: 20px;
+    padding-top: 20%;
+  }
+
+  .instructions {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 15px;
+    padding: 20px;
+  }
 }

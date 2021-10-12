@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+import '../Styles/RecipeDetails.css';
+
 export default function MealFavoriteButton({ mealRecipe, id }) {
   const [favorite, setFavorite] = useState(false);
   const [favoritesList, setFavoritesList] = useState([]);
@@ -57,7 +59,7 @@ export default function MealFavoriteButton({ mealRecipe, id }) {
   }
 
   return (
-    <div>
+    <div className="favorite-btn">
       <button onClick={ handleFavorite } type="button">
         <img
           src={ favorite ? blackHeartIcon : whiteHeartIcon }

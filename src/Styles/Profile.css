@@ -6,23 +6,66 @@
   background-position-x: center;
   background-position-y: top;
   background-size: 25%;
+  color: white;
   display: flex;
   flex-flow: column wrap;
-  height: 85vh;
+  font-family: Nunito , sans-serif;
+  font-size: 3vh;
+  font-weight: 600;
+  height: 70vh;
   margin: auto;
   margin-top: 0%;
-  padding-top: 20%;
+  padding-top: 15%;
   width: 100%;
-  color: white;
-  font-family: Nunito, sans-serif;
-  font-size: 4vh;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.profile-button {
+  background: var(--button-linear);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  margin: 10px;
+  margin-bottom: 32px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+  transition: 0.5s ease;
+  width: 10em;
+
+}
+
+.profile-button:hover {
+  background-position: right;
 }
 
 @media screen  and ( max-width : 360px ) {
 
   .profile-container {
     background-size: 60%;
-    margin-top: 20px;
     height: 100vh;
+    margin-top: 20px;
+    padding-top: 20%;
+  }
+
+  .profile-buttons {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 10px;
   }
 }
