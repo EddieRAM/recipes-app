@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DrinkFavoriteButton from '../Components/DrinkFavoriteButton';
 import Share from '../Components/Share';
+import '../Styles/InProgress.css';
 
 function ProgressDrink({ match: { params: { id } }, history }) {
   const [apiId, setApiID] = useState({});
@@ -153,8 +154,13 @@ function ProgressDrink({ match: { params: { id } }, history }) {
   }
 
   return (
-    <div>
-      <img src={ apiId.strDrinkThumb } alt={ apiId.idDrink } data-testid="recipe-photo" />
+    <div className="progress-container">
+      <img
+        className="progress-img"
+        src={ apiId.strDrinkThumb }
+        alt={ apiId.idDrink }
+        data-testid="recipe-photo"
+      />
       <h5 data-testid="recipe-title">{apiId.strDrink}</h5>
       <Share />
       <DrinkFavoriteButton drinkRecipe={ apiId } id={ id } />
@@ -185,8 +191,15 @@ function ProgressDrink({ match: { params: { id } }, history }) {
           ))
         }
       </div>
-      <p data-testid="instructions">{apiId.strInstructions}</p>
+      <p
+        className="instructions"
+        data-testid="instructions"
+      >
+        {apiId.strInstructions}
+
+      </p>
       <button
+        className="finish-recipe"
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }

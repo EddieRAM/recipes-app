@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../Styles/Progress.css';
 import MealFavoriteButton from '../Components/MealFavoriteButton';
 import Share from '../Components/Share';
+import '../Styles/InProgress.css';
 
 function ProgressFood({ match: { params: { id } }, history }) {
   const [apiId, setApiID] = useState({});
@@ -152,8 +153,13 @@ function ProgressFood({ match: { params: { id } }, history }) {
   }
 
   return (
-    <div>
-      <img src={ apiId.strMealThumb } alt={ apiId.strTags } data-testid="recipe-photo" />
+    <div className="progress-container">
+      <img
+        className="progress-img"
+        src={ apiId.strMealThumb }
+        alt={ apiId.strTags }
+        data-testid="recipe-photo"
+      />
       <h5 data-testid="recipe-title">{apiId.strMeal}</h5>
       <Share />
       <MealFavoriteButton mealRecipe={ apiId } id={ id } />
@@ -184,8 +190,15 @@ function ProgressFood({ match: { params: { id } }, history }) {
           ))
         }
       </div>
-      <p data-testid="instructions">{apiId.strInstructions}</p>
+      <p
+        className="instructions"
+        data-testid="instructions"
+      >
+        {apiId.strInstructions}
+
+      </p>
       <button
+        className="finish-recipe"
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }

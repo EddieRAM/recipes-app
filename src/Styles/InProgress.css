@@ -1,0 +1,97 @@
+.finish-recipe {
+  background: var(--button-linear);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  margin: 10px;
+  margin-bottom: 32px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  text-align: center;
+  transition: 0.5s ease;
+  width: 10em;
+}
+
+.finish-recipe:hover {
+  background-position: right;
+}
+
+.progress-img {
+  border-radius: 10px;
+  margin: 25px;
+  max-height: 235px;
+  max-width: 200px;
+  min-height: 100px;
+  min-width: 100px;
+}
+
+h5 {
+  margin: 25px;
+}
+
+.progress-container {
+  align-items: center;
+  background-color: blur(1.5) white;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 , 5em;
+  width: 100%;
+}
+
+.share-btn button {
+  background: var(--button-linear2);
+  background-size: 200%;
+  border: unset;
+  border-radius: var(--border-radius);
+  bottom: 0;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 16px;
+  font-weight: 800;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  margin: 10px;
+  margin-bottom: 32px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
+  transition: 0.5s ease;
+  width: 10em;
+}
+
+.share-btn button:hover {
+  background-position: right;
+}
+
+.instructions {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 20px 200px;
+}
+
+@media screen  and ( max-width : 360px ) {
+
+  .instructions {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 15px;
+    padding: 20px;
+  }
+}

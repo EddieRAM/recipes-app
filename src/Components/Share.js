@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import '../Styles/InProgress.css';
 
 function Share() {
   const [message, setMessage] = useState(false);
@@ -13,7 +14,15 @@ function Share() {
 
   return (
     <div>
-      <button onClick={ copyLink } type="button" data-testid="share-btn">Share</button>
+      <button
+        className="share-btn"
+        onClick={ copyLink }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+
+      </button>
       <p>{message ? 'Link copiado!' : ''}</p>
     </div>
   );
