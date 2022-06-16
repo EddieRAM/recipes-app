@@ -13,7 +13,7 @@ Final project of the React.js module at Trybe School.
 
 This is a project made by a team of 5 students including myself.
 
-Feel free to check the commit section to find all member's githubs. 
+Feel free to check the commit section to find all member's contributions! 
 
 #### Features:
 - Gives user a token when he puts a valid email and a password with 6 or more characters;
